@@ -13,6 +13,9 @@ const config: Config = {
         'success-green': '#16A34A',
         'warm-gray': '#9CA3AF',
       },
+      spacing: {
+        '18': '4.5rem',
+      },
       fontFamily: {
         'sans': ['Inter', 'system-ui', 'sans-serif'],
       },

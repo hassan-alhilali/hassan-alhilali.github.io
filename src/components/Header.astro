@@ -39,7 +39,7 @@ const siteName = 'Hassan Al-Hilali';
     <button
       id="mobile-menu-toggle"
       type="button"
-      class="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-slate-gray hover:text-charcoal hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-deep-blue"
+      class="lg:hidden inline-flex items-center justify-center p-2.5 rounded-md text-slate-gray hover:text-charcoal hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-deep-blue"
       aria-expanded="false"
       aria-controls="mobile-menu"
       aria-label="Toggle navigation menu"
@@ -58,14 +58,14 @@ const siteName = 'Hassan Al-Hilali';
       {navLinks.map((link) => (
         <a
           href={link.href}
-          class="block px-3 py-2 text-base font-medium text-slate-gray hover:text-charcoal hover:bg-gray-50 rounded-md transition-colors"
+          class="flex items-center px-3 py-3 min-h-[44px] text-base font-medium text-slate-gray hover:text-charcoal hover:bg-gray-50 rounded-md transition-colors"
         >
           {link.label}
         </a>
       ))}
       <a
         href={`mailto:${ctaEmail}`}
-        class="block mt-3 text-center px-4 py-2.5 text-sm font-medium text-white bg-deep-blue rounded-lg hover:bg-charcoal transition-colors"
+        class="flex items-center justify-center mt-3 px-4 py-3 min-h-[44px] text-sm font-medium text-white bg-deep-blue rounded-lg hover:bg-charcoal transition-colors"
         aria-label={`${ctaLabel} via email`}
       >
         {ctaLabel}
