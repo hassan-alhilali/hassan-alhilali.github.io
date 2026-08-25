@@ -1,0 +1,43 @@
+---
+const steps = [
+  { number: 1, title: 'Planning', description: 'Define scope, objectives, and project controls framework tailored to your needs.' },
+  { number: 2, title: 'Execution', description: 'Implement scheduling, cost management, and risk systems with precision.' },
+  { number: 3, title: 'Monitoring', description: 'Track performance against baselines with real-time data and earned value metrics.' },
+  { number: 4, title: 'Reporting', description: 'Deliver clear, actionable reports that give stakeholders confidence and visibility.' },
+  { number: 5, title: 'Decision', description: 'Enable data-driven decisions that keep projects on time and on budget.' },
+];
+---
+
+<section id="how-i-work" class="bg-white py-16 lg:py-24" aria-labelledby="how-i-work-heading">
+  <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h2 id="how-i-work-heading" class="text-3xl sm:text-4xl font-bold text-charcoal mb-4">
+        How I Work
+      </h2>
+      <p class="text-lg text-slate-gray max-w-2xl mx-auto">
+        A structured methodology that delivers clarity and control at every stage of your project.
+      </p>
+    </div>
+
+    <ol class="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-0">
+      {steps.map((step, index) => (
+        <li class="flex-1 flex flex-col items-center text-center relative">
+          <div class="w-12 h-12 rounded-full bg-deep-blue text-white font-bold text-lg flex items-center justify-center mb-4" aria-hidden="true">
+            {step.number}
+          </div>
+
+          {index < steps.length - 1 && (
+            <div class="hidden md:block absolute top-6 left-[calc(50%+2rem)] w-[calc(100%-4rem)] h-[2px] bg-deep-blue/20" aria-hidden="true"></div>
+          )}
+
+          <h3 class="text-xl font-semibold text-charcoal mb-2">
+            {step.title}
+          </h3>
+          <p class="text-slate-gray leading-relaxed max-w-[200px]">
+            {step.description}
+          </p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
