@@ -1,0 +1,111 @@
+---
+const navLinks = [
+  { label: 'Services', href: '#services' },
+  { label: 'Expertise', href: '#expertise' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'About', href: '#about' },
+  { label: 'Contact', href: '#contact' },
+];
+
+const ctaLabel = 'Discuss a Project';
+const ctaEmail = 'hassan268@gmail.com';
+const siteName = 'Hassan Al-Hilali';
+---
+
+<header id="site-header" class="fixed top-0 left-0 right-0 z-50 bg-off-white/95 backdrop-blur-sm transition-shadow duration-300" aria-label="Site header">
+  <nav class="max-w-content mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 h-16 lg:h-18" aria-label="Main navigation">
+    <a href="/" class="text-lg font-semibold text-charcoal hover:text-deep-blue transition-colors" aria-label={`${siteName} - Home`}>
+      {siteName}
+    </a>
+
+    <ul class="hidden lg:flex items-center gap-8" role="list">
+      {navLinks.map((link) => (
+        <li>
+          <a href={link.href} class="text-sm font-medium text-slate-gray hover:text-charcoal transition-colors">
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <a
+      href={`mailto:${ctaEmail}`}
+      class="hidden lg:inline-flex items-center px-5 py-2.5 text-sm font-medium text-white bg-deep-blue rounded-lg hover:bg-charcoal transition-colors focus:outline-none focus:ring-2 focus:ring-deep-blue focus:ring-offset-2"
+      aria-label={`${ctaLabel} via email`}
+    >
+      {ctaLabel}
+    </a>
+
+    <button
+      id="mobile-menu-toggle"
+      type="button"
+      class="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-slate-gray hover:text-charcoal hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-deep-blue"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Toggle navigation menu"
+    >
+      <svg id="menu-icon-open" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+      </svg>
+      <svg id="menu-icon-close" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </nav>
+
+  <div id="mobile-menu" class="lg:hidden hidden border-t border-gray-200 bg-off-white" role="list" aria-label="Mobile navigation">
+    <div class="px-4 pt-2 pb-4 space-y-1">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class="block px-3 py-2 text-base font-medium text-slate-gray hover:text-charcoal hover:bg-gray-50 rounded-md transition-colors"
+        >
+          {link.label}
+        </a>
+      ))}
+      <a
+        href={`mailto:${ctaEmail}`}
+        class="block mt-3 text-center px-4 py-2.5 text-sm font-medium text-white bg-deep-blue rounded-lg hover:bg-charcoal transition-colors"
+        aria-label={`${ctaLabel} via email`}
+      >
+        {ctaLabel}
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('site-header');
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('menu-icon-open');
+  const iconClose = document.getElementById('menu-icon-close');
+
+  let menuOpen = false;
+
+  function toggleMenu() {
+    menuOpen = !menuOpen;
+    if (mobileMenu && toggle && iconOpen && iconClose) {
+      mobileMenu.classList.toggle('hidden', !menuOpen);
+      iconOpen.classList.toggle('hidden', menuOpen);
+      iconClose.classList.toggle('hidden', !menuOpen);
+      toggle.setAttribute('aria-expanded', String(menuOpen));
+    }
+  }
+
+  if (toggle) {
+    toggle.addEventListener('click', toggleMenu);
+  }
+
+  function onScroll() {
+    if (!header) return;
+    if (window.scrollY > 10) {
+      header.classList.add('shadow-md');
+    } else {
+      header.classList.remove('shadow-md');
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
