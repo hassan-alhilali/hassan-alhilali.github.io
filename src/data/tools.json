@@ -1,0 +1,37 @@
+[
+  {
+    "id": "primavera-p6",
+    "name": "Primavera P6",
+    "category": "core"
+  },
+  {
+    "id": "microsoft-project",
+    "name": "Microsoft Project",
+    "category": "core"
+  },
+  {
+    "id": "microsoft-excel",
+    "name": "Microsoft Excel",
+    "category": "core"
+  },
+  {
+    "id": "power-bi",
+    "name": "Power BI",
+    "category": "core"
+  },
+  {
+    "id": "python",
+    "name": "Python",
+    "category": "data"
+  },
+  {
+    "id": "sql-sqlite",
+    "name": "SQL/SQLite",
+    "category": "data"
+  },
+  {
+    "id": "powershell",
+    "name": "PowerShell",
+    "category": "data"
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "planning-scheduling",
+    "title": "Planning & Scheduling",
+    "description": "Content requirement: Brief description of planning and scheduling services."
+  },
+  {
+    "id": "cost-control-evm",
+    "title": "Cost Control & Earned Value Management (EVM)",
+    "description": "Content requirement: Brief description of cost control and EVM services."
+  },
+  {
+    "id": "risk-management",
+    "title": "Project Risk Management",
+    "description": "Content requirement: Brief description of risk management services."
+  },
+  {
+    "id": "reporting-dashboards",
+    "title": "Project Reporting & Power BI Dashboards",
+    "description": "Content requirement: Brief description of reporting and dashboard services."
+  },
+  {
+    "id": "schedule-analysis",
+    "title": "Schedule Analysis & Recovery Planning",
+    "description": "Content requirement: Brief description of schedule analysis and recovery services."
+  },
+  {
+    "id": "controls-systems",
+    "title": "Project Controls Systems & Setup",
+    "description": "Content requirement: Brief description of project controls setup services."
+  }
+]
