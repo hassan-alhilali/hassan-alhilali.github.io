@@ -1,0 +1,26 @@
+---
+import siteData from '../data/site.json';
+---
+
+<section id="hero" class="bg-charcoal text-white pt-24 lg:pt-32 pb-16 lg:pb-24" aria-label="Hero section">
+  <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-4">
+      {siteData.fullName}
+    </h1>
+
+    <p class="text-lg sm:text-xl text-warm-gray font-medium mb-6">
+      {siteData.title}
+    </p>
+
+    <p class="text-base sm:text-lg text-slate-gray max-w-2xl mb-8">
+      {siteData.valueProposition}
+    </p>
+
+    <a
+      href="#contact"
+      class="inline-flex items-center px-6 py-3 text-base font-medium text-white bg-deep-blue rounded-lg hover:bg-deep-blue/80 transition-colors focus:outline-none focus:ring-2 focus:ring-deep-blue focus:ring-offset-2 focus:ring-offset-charcoal"
+    >
+      Discuss a Project
+    </a>
+  </div>
+</section>
