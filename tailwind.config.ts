@@ -6,10 +6,10 @@ const config: Config = {
     extend: {
       colors: {
         'charcoal': '#1A1A2E',
-        'slate-gray': '#4A5568',
+        'slate-gray': '#374151',
         'off-white': '#F7F8FA',
         'deep-blue': '#2563EB',
-        'steel-blue': '#64748B',
+        'steel-blue': '#475569',
         'success-green': '#16A34A',
         'warm-gray': '#9CA3AF',
       },
