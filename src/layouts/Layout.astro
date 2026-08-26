@@ -62,13 +62,72 @@ const {
     position: absolute;
     top: -40px;
     left: 0;
-    background: #000;
+    background: #1A1A2E;
     color: white;
-    padding: 8px;
+    padding: 8px 16px;
     z-index: 100;
+    font-size: 0.875rem;
+    text-decoration: none;
+    border-radius: 0 0 4px 0;
   }
 
   .skip-link:focus {
     top: 0;
   }
 </style>
+
+<script>
+  // IntersectionObserver for scroll-reveal animations
+  function initScrollReveal() {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const elements = document.querySelectorAll('.scroll-reveal');
+    if (elements.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -40px 0px',
+      }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+  }
+
+  // Line reveal for How I Work connectors
+  function initLineReveal() {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const lines = document.querySelectorAll('.line-reveal');
+    if (lines.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    lines.forEach((el) => observer.observe(el));
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    initScrollReveal();
+    initLineReveal();
+  });
+</script>
