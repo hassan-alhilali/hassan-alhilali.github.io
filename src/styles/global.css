@@ -5,17 +5,96 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    @apply bg-off-white text-charcoal;
+    @apply bg-off-white text-charcoal font-sans;
+    text-rendering: optimizeLegibility;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply text-charcoal;
+    @apply text-charcoal font-semibold;
   }
 
   a {
     @apply transition-colors duration-200;
+  }
+
+  ::selection {
+    background: rgba(37, 99, 235, 0.15);
+  }
+}
+
+@layer components {
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s cubic-bezier(0.25, 0.1, 0.25, 1),
+                transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  .scroll-reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .stagger-1 { transition-delay: 0ms; }
+  .stagger-2 { transition-delay: 100ms; }
+  .stagger-3 { transition-delay: 200ms; }
+  .stagger-4 { transition-delay: 300ms; }
+  .stagger-5 { transition-delay: 400ms; }
+  .stagger-6 { transition-delay: 500ms; }
+
+  .hero-animate {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: heroFadeUp 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  }
+
+  .hero-animate-delay-1 { animation-delay: 150ms; }
+  .hero-animate-delay-2 { animation-delay: 300ms; }
+  .hero-animate-delay-3 { animation-delay: 450ms; }
+  .hero-animate-delay-4 { animation-delay: 600ms; }
+
+  @keyframes heroFadeUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .line-reveal {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  .line-reveal.revealed {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .hero-animate {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .line-reveal {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  html {
+    scroll-behavior: auto;
   }
 }
