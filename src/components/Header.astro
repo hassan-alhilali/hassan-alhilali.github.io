@@ -12,16 +12,16 @@ const ctaEmail = 'hassan268@gmail.com';
 const siteName = 'Hassan Al-Hilali';
 ---
 
-<header id="site-header" class="fixed top-0 left-0 right-0 z-50 bg-off-white/95 backdrop-blur-sm transition-shadow duration-300" aria-label="Site header">
-  <nav class="max-w-content mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 h-16 lg:h-18" aria-label="Main navigation">
-    <a href="/" class="text-lg font-semibold text-charcoal hover:text-deep-blue transition-colors" aria-label={`${siteName} - Home`}>
+<header id="site-header" class="fixed top-0 left-0 right-0 z-50 bg-off-white/80 backdrop-blur-md border-b border-transparent transition-all duration-300" aria-label="Site header">
+  <nav class="max-w-content mx-auto flex items-center justify-between px-6 lg:px-8 h-14 lg:h-16" aria-label="Main navigation">
+    <a href="/" class="text-base font-semibold text-charcoal tracking-tight hover:text-deep-blue transition-colors" aria-label={`${siteName} - Home`}>
       {siteName}
     </a>
 
     <ul class="hidden lg:flex items-center gap-8">
       {navLinks.map((link) => (
         <li>
-          <a href={link.href} class="text-sm font-medium text-slate-gray hover:text-charcoal transition-colors">
+          <a href={link.href} class="text-sm font-medium text-slate-gray hover:text-charcoal transition-colors duration-200">
             {link.label}
           </a>
         </li>
@@ -30,7 +30,7 @@ const siteName = 'Hassan Al-Hilali';
 
     <a
       href={`mailto:${ctaEmail}`}
-      class="hidden lg:inline-flex items-center px-5 py-2.5 text-sm font-medium text-white bg-deep-blue rounded-lg hover:bg-charcoal transition-colors focus:outline-none focus:ring-2 focus:ring-deep-blue focus:ring-offset-2"
+      class="hidden lg:inline-flex items-center px-5 py-2 text-sm font-medium text-charcoal border border-charcoal/20 rounded-full hover:bg-charcoal hover:text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-charcoal focus:ring-offset-2"
       aria-label={`${ctaLabel} via email`}
     >
       {ctaLabel}
@@ -39,33 +39,33 @@ const siteName = 'Hassan Al-Hilali';
     <button
       id="mobile-menu-toggle"
       type="button"
-      class="lg:hidden inline-flex items-center justify-center p-2.5 rounded-md text-slate-gray hover:text-charcoal hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-deep-blue"
+      class="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-slate-gray hover:text-charcoal focus:outline-none focus:ring-2 focus:ring-inset focus:ring-charcoal"
       aria-expanded="false"
       aria-controls="mobile-menu"
       aria-label="Toggle navigation menu"
     >
-      <svg id="menu-icon-open" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+      <svg id="menu-icon-open" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
       </svg>
-      <svg id="menu-icon-close" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+      <svg id="menu-icon-close" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
       </svg>
     </button>
   </nav>
 
-  <div id="mobile-menu" class="lg:hidden hidden border-t border-gray-200 bg-off-white" aria-label="Mobile navigation">
-    <div class="px-4 pt-2 pb-4 space-y-1">
+  <div id="mobile-menu" class="lg:hidden hidden border-t border-gray-100 bg-off-white/95 backdrop-blur-md" aria-label="Mobile navigation">
+    <div class="px-6 pt-4 pb-6 space-y-1">
       {navLinks.map((link) => (
         <a
           href={link.href}
-          class="flex items-center px-3 py-3 min-h-[44px] text-base font-medium text-slate-gray hover:text-charcoal hover:bg-gray-50 rounded-md transition-colors"
+          class="flex items-center px-3 py-3 min-h-[44px] text-base font-medium text-slate-gray hover:text-charcoal transition-colors duration-200"
         >
           {link.label}
         </a>
       ))}
       <a
         href={`mailto:${ctaEmail}`}
-        class="flex items-center justify-center mt-3 px-4 py-3 min-h-[44px] text-sm font-medium text-white bg-deep-blue rounded-lg hover:bg-charcoal transition-colors"
+        class="flex items-center justify-center mt-4 px-4 py-3 min-h-[44px] text-sm font-medium text-charcoal border border-charcoal/20 rounded-full hover:bg-charcoal hover:text-white transition-all duration-200"
         aria-label={`${ctaLabel} via email`}
       >
         {ctaLabel}
@@ -99,10 +99,12 @@ const siteName = 'Hassan Al-Hilali';
 
   function onScroll() {
     if (!header) return;
-    if (window.scrollY > 10) {
-      header.classList.add('shadow-md');
+    if (window.scrollY > 20) {
+      header.classList.add('shadow-sm');
+      header.style.borderBottomColor = 'rgba(0,0,0,0.06)';
     } else {
-      header.classList.remove('shadow-md');
+      header.classList.remove('shadow-sm');
+      header.style.borderBottomColor = 'transparent';
     }
   }
 

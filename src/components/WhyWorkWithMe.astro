@@ -1,53 +1,51 @@
 ---
 const differentiators = [
   {
+    number: '01',
     title: 'Integrated Approach',
     description: 'Connecting planning, cost, risk, and reporting into a unified controls framework that eliminates silos and drives alignment across your project team.',
   },
   {
+    number: '02',
     title: 'Breadth of Skills',
     description: 'Deep expertise across scheduling, cost management, earned value, and risk analysis — providing end-to-end project controls under one point of accountability.',
   },
   {
+    number: '03',
     title: 'Data-Driven Decisions',
     description: 'Every recommendation grounded in quantitative analysis, earned value metrics, and trend data — not assumptions or intuition.',
   },
   {
+    number: '04',
     title: 'Industry Focus',
     description: 'Specialized experience in Oil & Gas and Construction, understanding the unique regulatory, safety, and operational demands of capital-intensive industries.',
   },
 ];
 ---
 
-<section id="why-work-with-me" class="bg-white py-16 lg:py-24" aria-labelledby="why-work-with-me-heading">
-  <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-12">
-      <h2 id="why-work-with-me-heading" class="text-3xl sm:text-4xl font-bold text-charcoal mb-4">
+<section id="why-work-with-me" class="bg-white pt-24 pb-24 lg:pt-40 lg:pb-40" aria-labelledby="why-work-with-me-heading">
+  <div class="max-w-content mx-auto px-6 lg:px-8">
+    <div class="mb-16 lg:mb-20">
+      <h2 id="why-work-with-me-heading" class="text-section-sm sm:text-section font-semibold tracking-tight mb-4 scroll-reveal">
         Why Work With Me
       </h2>
-      <p class="text-lg text-slate-gray max-w-2xl mx-auto">
+      <p class="text-lg text-slate-gray max-w-prose scroll-reveal stagger-1">
         What sets my approach apart and why clients trust me with their most complex projects.
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {differentiators.map((item) => (
-        <article class="bg-off-white rounded-lg p-6">
-          <div class="flex items-start gap-4">
-            <div class="flex-shrink-0 mt-1">
-              <svg class="w-6 h-6 text-success-green" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-            <div>
-              <h3 class="text-xl font-semibold text-charcoal mb-2">
-                {item.title}
-              </h3>
-              <p class="text-slate-gray leading-relaxed">
-                {item.description}
-              </p>
-            </div>
-          </div>
+    <div class="space-y-12 lg:space-y-16">
+      {differentiators.map((item, index) => (
+        <article class={`scroll-reveal stagger-${index + 1}`}>
+          <span class="text-deep-blue font-semibold text-sm tracking-wider" aria-hidden="true">
+            {item.number}
+          </span>
+          <h3 class="text-xl sm:text-2xl font-semibold text-charcoal mt-2 mb-3 tracking-tight">
+            {item.title}
+          </h3>
+          <p class="text-slate-gray leading-relaxed max-w-prose">
+            {item.description}
+          </p>
         </article>
       ))}
     </div>

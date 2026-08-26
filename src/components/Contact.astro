@@ -2,24 +2,26 @@
 import siteData from '../data/site.json';
 ---
 
-<section id="contact" class="bg-off-white py-16 lg:py-24" aria-labelledby="contact-heading">
-  <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <h2 id="contact-heading" class="text-3xl sm:text-4xl font-bold text-charcoal mb-4">
-      Get In Touch
-    </h2>
-
-    <div class="max-w-2xl mx-auto space-y-6">
-      <a
-        href={`mailto:${siteData.email}`}
-        class="inline-block bg-charcoal text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-slate-gray transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-charcoal focus:ring-offset-2"
-      >
+<section id="contact" class="bg-white pt-24 pb-24 lg:pt-40 lg:pb-40" aria-labelledby="contact-heading">
+  <div class="max-w-content mx-auto px-6 lg:px-8">
+    <div class="max-w-prose">
+      <h2 id="contact-heading" class="text-section-sm sm:text-section font-semibold tracking-tight mb-8 scroll-reveal">
         Discuss a Project
-      </a>
+      </h2>
 
-      <p class="text-slate-gray">
-        <span class="block">{siteData.location}</span>
-        <span class="block mt-1">{siteData.availability}</span>
-      </p>
+      <div class="space-y-6 scroll-reveal stagger-1">
+        <a
+          href={`mailto:${siteData.email}`}
+          class="inline-block text-deep-blue text-lg sm:text-xl font-medium border-b border-deep-blue/30 pb-1 hover:border-deep-blue transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-deep-blue focus:ring-offset-2"
+        >
+          {siteData.email}
+        </a>
+
+        <div class="text-slate-gray space-y-1">
+          <p>{siteData.location}</p>
+          <p>{siteData.availability}</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>

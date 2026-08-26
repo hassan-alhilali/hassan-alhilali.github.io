@@ -2,11 +2,11 @@
 import siteData from '../data/site.json';
 ---
 
-<section id="about" class="bg-off-white py-16 lg:py-24" aria-labelledby="about-heading">
-  <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-      <article>
-        <h2 id="about-heading" class="text-3xl sm:text-4xl font-bold text-charcoal mb-4">
+<section id="about" class="bg-off-white pt-24 pb-24 lg:pt-40 lg:pb-40" aria-labelledby="about-heading">
+  <div class="max-w-content mx-auto px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-start">
+      <article class="scroll-reveal">
+        <h2 id="about-heading" class="text-section-sm sm:text-section font-semibold tracking-tight mb-6">
           About Me
         </h2>
         <p class="text-base sm:text-lg text-slate-gray leading-relaxed">
@@ -14,11 +14,14 @@ import siteData from '../data/site.json';
         </p>
       </article>
 
-      <div
-        class="w-64 h-64 mx-auto md:mx-0 bg-gray-200 rounded-lg flex items-center justify-center"
-        role="img"
-        aria-label="Professional headshot placeholder"
-      >
+      <div class="flex justify-start md:justify-end scroll-reveal stagger-1">
+        <div
+          class="w-56 h-56 lg:w-64 lg:h-64 border border-charcoal/10 rounded-sm flex items-center justify-center"
+          role="img"
+          aria-label="Professional headshot placeholder"
+        >
+          <span class="text-warm-gray text-sm">Photo</span>
+        </div>
       </div>
     </div>
   </div>

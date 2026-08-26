@@ -8,34 +8,54 @@ const steps = [
 ];
 ---
 
-<section id="how-i-work" class="bg-white py-16 lg:py-24" aria-labelledby="how-i-work-heading">
-  <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-12">
-      <h2 id="how-i-work-heading" class="text-3xl sm:text-4xl font-bold text-charcoal mb-4">
+<section id="how-i-work" class="bg-white pt-24 pb-24 lg:pt-40 lg:pb-40" aria-labelledby="how-i-work-heading">
+  <div class="max-w-content mx-auto px-6 lg:px-8">
+    <div class="mb-16 lg:mb-20">
+      <h2 id="how-i-work-heading" class="text-section-sm sm:text-section font-semibold tracking-tight mb-4 scroll-reveal">
         How I Work
       </h2>
-      <p class="text-lg text-slate-gray max-w-2xl mx-auto">
+      <p class="text-lg text-slate-gray max-w-prose scroll-reveal stagger-1">
         A structured methodology that delivers clarity and control at every stage of your project.
       </p>
     </div>
 
-    <ol class="flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-0">
+    <!-- Desktop: Horizontal layout -->
+    <ol class="hidden md:flex items-start gap-0 relative" aria-label="Methodology steps">
       {steps.map((step, index) => (
-        <li class="flex-1 flex flex-col items-center text-center relative">
-          <div class="w-12 h-12 rounded-full bg-deep-blue text-white font-bold text-lg flex items-center justify-center mb-4" aria-hidden="true">
-            {step.number}
-          </div>
+        <li class={`flex-1 flex flex-col text-left relative scroll-reveal stagger-${index + 1}`}>
+          <span class="text-sm font-medium text-deep-blue mb-3 tracking-wide uppercase" aria-hidden="true">
+            0{step.number}
+          </span>
 
           {index < steps.length - 1 && (
-            <div class="hidden md:block absolute top-6 left-[calc(50%+2rem)] w-[calc(100%-4rem)] h-[2px] bg-deep-blue/20" aria-hidden="true"></div>
+            <div class="hidden md:block absolute top-3 left-[calc(100%-1rem)] w-[calc(100%-0rem)] h-px bg-charcoal/10 line-reveal" aria-hidden="true"></div>
           )}
 
-          <h3 class="text-xl font-semibold text-charcoal mb-2">
+          <h3 class="text-xl font-semibold text-charcoal mb-2 tracking-tight">
             {step.title}
           </h3>
-          <p class="text-slate-gray leading-relaxed max-w-[200px]">
+          <p class="text-sm text-slate-gray leading-relaxed pr-6">
             {step.description}
           </p>
+        </li>
+      ))}
+    </ol>
+
+    <!-- Mobile: Vertical layout -->
+    <ol class="md:hidden space-y-10" aria-label="Methodology steps">
+      {steps.map((step, index) => (
+        <li class={`flex gap-5 scroll-reveal stagger-${index + 1}`}>
+          <span class="text-sm font-medium text-deep-blue tracking-wide uppercase flex-shrink-0 mt-0.5" aria-hidden="true">
+            0{step.number}
+          </span>
+          <div>
+            <h3 class="text-lg font-semibold text-charcoal mb-1.5 tracking-tight">
+              {step.title}
+            </h3>
+            <p class="text-sm text-slate-gray leading-relaxed">
+              {step.description}
+            </p>
+          </div>
         </li>
       ))}
     </ol>
