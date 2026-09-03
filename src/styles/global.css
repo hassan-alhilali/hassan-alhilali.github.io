@@ -5,6 +5,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -14,7 +15,22 @@
     text-rendering: optimizeLegibility;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  html[dir='rtl'] body {
+    letter-spacing: 0;
+  }
+
+  html[dir='rtl'] h1,
+  html[dir='rtl'] h2,
+  html[dir='rtl'] h3 {
+    letter-spacing: 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply text-charcoal font-semibold;
   }
 
@@ -23,16 +39,59 @@
   }
 
   ::selection {
-    background: rgba(37, 99, 235, 0.15);
+    background: rgba(37, 99, 235, 0.16);
+  }
+
+  :focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 3px;
+    border-radius: 2px;
   }
 }
 
 @layer components {
+  .section-pad {
+    @apply pt-20 pb-20 lg:pt-32 lg:pb-32;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-deep-blue;
+  }
+
+  .eyebrow::before {
+    content: '';
+    @apply inline-block w-6 h-px bg-deep-blue/50;
+  }
+
+  .card {
+    @apply bg-white border border-line rounded-2xl transition-all duration-300 ease-premium;
+  }
+
+  .card-hover:hover {
+    @apply border-deep-blue/30 shadow-[0_18px_40px_-24px_rgba(15,23,42,0.35)] -translate-y-0.5;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 text-base font-medium text-white bg-deep-blue rounded-full
+           hover:bg-deep-blue/90 active:scale-[0.98] transition-all duration-200 min-h-[48px];
+  }
+
+  .btn-ghost-dark {
+    @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 text-base font-medium text-white/90 border border-white/25 rounded-full
+           hover:bg-white/10 hover:border-white/40 transition-all duration-200 min-h-[48px];
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-medium text-charcoal border border-charcoal/20 rounded-full
+           hover:bg-charcoal hover:text-white transition-all duration-200;
+  }
+
   .scroll-reveal {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s cubic-bezier(0.25, 0.1, 0.25, 1),
-                transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+    transform: translateY(28px);
+    transition:
+      opacity 0.7s cubic-bezier(0.25, 0.1, 0.25, 1),
+      transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
   }
 
   .scroll-reveal.revealed {
@@ -41,11 +100,11 @@
   }
 
   .stagger-1 { transition-delay: 0ms; }
-  .stagger-2 { transition-delay: 100ms; }
-  .stagger-3 { transition-delay: 200ms; }
-  .stagger-4 { transition-delay: 300ms; }
-  .stagger-5 { transition-delay: 400ms; }
-  .stagger-6 { transition-delay: 500ms; }
+  .stagger-2 { transition-delay: 80ms; }
+  .stagger-3 { transition-delay: 160ms; }
+  .stagger-4 { transition-delay: 240ms; }
+  .stagger-5 { transition-delay: 320ms; }
+  .stagger-6 { transition-delay: 400ms; }
 
   .hero-animate {
     opacity: 0;
@@ -53,10 +112,11 @@
     animation: heroFadeUp 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
   }
 
-  .hero-animate-delay-1 { animation-delay: 150ms; }
-  .hero-animate-delay-2 { animation-delay: 300ms; }
-  .hero-animate-delay-3 { animation-delay: 450ms; }
-  .hero-animate-delay-4 { animation-delay: 600ms; }
+  .hero-animate-delay-1 { animation-delay: 120ms; }
+  .hero-animate-delay-2 { animation-delay: 240ms; }
+  .hero-animate-delay-3 { animation-delay: 360ms; }
+  .hero-animate-delay-4 { animation-delay: 480ms; }
+  .hero-animate-delay-5 { animation-delay: 600ms; }
 
   @keyframes heroFadeUp {
     to {
@@ -71,27 +131,60 @@
     transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
   }
 
+  html[dir='rtl'] .line-reveal {
+    transform-origin: right;
+  }
+
   .line-reveal.revealed {
     transform: scaleX(1);
+  }
+
+  /* Gantt bar grow-in */
+  .gantt-bar {
+    transform: scaleX(0);
+    transform-box: fill-box;
+    transform-origin: left center;
+    animation: barGrow 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  @keyframes barGrow {
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  .curve-draw {
+    stroke-dasharray: 1200;
+    stroke-dashoffset: 1200;
+    animation: drawLine 2s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  }
+
+  @keyframes drawLine {
+    to {
+      stroke-dashoffset: 0;
+    }
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .scroll-reveal {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-
+  .scroll-reveal,
   .hero-animate {
     opacity: 1 !important;
     transform: none !important;
+    transition: none !important;
     animation: none !important;
   }
 
-  .line-reveal {
+  .line-reveal,
+  .gantt-bar {
     transform: none !important;
     transition: none !important;
+    animation: none !important;
+  }
+
+  .curve-draw {
+    stroke-dashoffset: 0 !important;
+    animation: none !important;
   }
 
   html {

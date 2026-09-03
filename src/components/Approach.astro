@@ -1,0 +1,40 @@
+---
+import { t, type Lang } from '../i18n/content';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const tr = t(lang);
+---
+
+<section id="approach" class="bg-off-white section-pad" aria-labelledby="approach-heading">
+  <div class="max-w-content mx-auto px-5 sm:px-6 lg:px-8">
+    <div class="max-w-2xl mb-12 lg:mb-16">
+      <p class="eyebrow scroll-reveal">{tr.approach.eyebrow}</p>
+      <h2 id="approach-heading" class="mt-4 text-section-sm sm:text-section font-bold tracking-tight scroll-reveal stagger-2">
+        {tr.approach.title}
+      </h2>
+      <p class="mt-4 text-[17px] leading-relaxed text-slate-gray scroll-reveal stagger-3">{tr.approach.lead}</p>
+    </div>
+
+    <ol class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 lg:gap-4" aria-label={tr.approach.title}>
+      {
+        tr.approach.steps.map((s, i) => (
+          <li class={`relative scroll-reveal stagger-${Math.min(i + 1, 6)}`}>
+            <div class="card card-hover h-full p-6 bg-white">
+              <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-charcoal text-white text-[13px] font-bold font-mono">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <h3 class="mt-5 text-[17px] font-bold text-charcoal tracking-tight">{s.title}</h3>
+              <p class="mt-2.5 text-[13.5px] leading-relaxed text-slate-gray">{s.desc}</p>
+            </div>
+            {i < tr.approach.steps.length - 1 && (
+              <span
+                class="hidden lg:block absolute top-[42px] -end-4 w-4 h-px bg-charcoal/15 line-reveal"
+                aria-hidden="true"
+              />
+            )}
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

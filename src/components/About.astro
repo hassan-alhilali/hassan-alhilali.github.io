@@ -1,27 +1,62 @@
 ---
+import { t, type Lang } from '../i18n/content';
 import siteData from '../data/site.json';
+import sectors from '../data/sectors.json';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const tr = t(lang);
 ---
 
-<section id="about" class="bg-off-white pt-24 pb-24 lg:pt-40 lg:pb-40" aria-labelledby="about-heading">
-  <div class="max-w-content mx-auto px-6 lg:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-start">
-      <article class="scroll-reveal">
-        <h2 id="about-heading" class="text-section-sm sm:text-section font-semibold tracking-tight mb-6">
-          About Me
-        </h2>
-        <p class="text-base sm:text-lg text-slate-gray leading-relaxed">
-          {siteData.summary}
-        </p>
-      </article>
-
-      <div class="flex justify-start md:justify-end scroll-reveal stagger-1">
-        <div
-          class="w-56 h-56 lg:w-64 lg:h-64 border border-charcoal/10 rounded-sm flex items-center justify-center"
-          role="img"
-          aria-label="Professional headshot placeholder"
-        >
-          <span class="text-warm-gray text-sm">Photo</span>
+<section id="about" class="relative bg-white section-pad overflow-hidden" aria-labelledby="about-heading">
+  <div class="max-w-content mx-auto px-5 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-16 items-center">
+      <div class="md:col-span-4 lg:col-span-4 scroll-reveal">
+        <div class="relative max-w-[340px]">
+          <div class="absolute -inset-3 rounded-3xl bg-deep-blue/[0.07]" aria-hidden="true"></div>
+          <!-- Replace /public/images/about.jpg with a portrait (4:5, ≥800×1000) when ready -->
+          <img
+            src="/images/about.jpg"
+            alt={tr.about.photoAlt}
+            width="680"
+            height="850"
+            class="relative w-full aspect-[4/5] object-cover object-[68%_45%] rounded-2xl border border-line bg-off-white"
+            loading="lazy"
+          />
         </div>
+      </div>
+
+      <div class="md:col-span-8 lg:col-span-8">
+        <p class="eyebrow scroll-reveal">{tr.about.eyebrow}</p>
+        <h2 id="about-heading" class="mt-4 text-section-sm sm:text-section font-bold tracking-tight scroll-reveal stagger-2">
+          {tr.about.title}
+        </h2>
+        <p class="mt-3 text-[15px] font-medium text-deep-blue scroll-reveal stagger-2">
+          {siteData.fullName[lang]} — {siteData.title[lang]}
+        </p>
+        <p class="mt-6 text-[16.5px] leading-[1.75] text-slate-gray scroll-reveal stagger-3">
+          {siteData.summary[lang]}
+        </p>
+
+        <div class="mt-8 flex flex-wrap items-center gap-2 scroll-reveal stagger-4">
+          {
+            sectors.map((s) => (
+              <span class="px-3 py-1.5 rounded-lg bg-off-white border border-line text-[13px] font-medium text-charcoal">
+                {s.name[lang]}
+              </span>
+            ))
+          }
+        </div>
+
+        <a
+          href="#contact"
+          class="mt-7 inline-flex items-center gap-2 text-[15px] font-semibold text-deep-blue hover:gap-3 transition-all scroll-reveal stagger-5"
+        >
+          {tr.cta.primary}
+          <svg class="w-4 h-4 rtl:rotate-180" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 10h11m0 0-4-4m4 4-4 4" />
+          </svg>
+        </a>
       </div>
     </div>
   </div>

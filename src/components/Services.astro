@@ -1,32 +1,49 @@
 ---
-import type { Service } from '../types/index';
-import servicesData from '../data/services.json';
+import { t, type Lang } from '../i18n/content';
+import ServiceIcon from './visuals/ServiceIcon.astro';
 
-const services: Service[] = servicesData;
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const tr = t(lang);
 ---
 
-<section id="services" class="bg-off-white pt-24 pb-24 lg:pt-40 lg:pb-40" aria-labelledby="services-heading">
-  <div class="max-w-content mx-auto px-6 lg:px-8">
-    <div class="mb-16 lg:mb-20">
-      <h2 id="services-heading" class="text-section-sm sm:text-section font-semibold tracking-tight mb-4 scroll-reveal">
-        Services
+<section id="services" class="bg-off-white section-pad" aria-labelledby="services-heading">
+  <div class="max-w-content mx-auto px-5 sm:px-6 lg:px-8">
+    <div class="max-w-2xl mb-12 lg:mb-16">
+      <p class="eyebrow scroll-reveal">{tr.services.eyebrow}</p>
+      <h2 id="services-heading" class="mt-4 text-section-sm sm:text-section font-bold tracking-tight scroll-reveal stagger-2">
+        {tr.services.title}
       </h2>
-      <p class="text-lg text-slate-gray max-w-prose scroll-reveal stagger-1">
-        Specialized project controls solutions tailored to your needs.
-      </p>
+      <p class="mt-4 text-[17px] leading-relaxed text-slate-gray scroll-reveal stagger-3">{tr.services.lead}</p>
     </div>
 
-    <div class="space-y-0">
-      {services.map((service, index) => (
-        <article class={`py-8 lg:py-10 ${index > 0 ? 'border-t border-charcoal/10' : ''} scroll-reveal stagger-${Math.min(index + 1, 6)}`}>
-          <h3 class="text-xl sm:text-2xl font-semibold text-charcoal mb-3 tracking-tight">
-            {service.title}
-          </h3>
-          <p class="text-slate-gray leading-relaxed max-w-prose">
-            {service.description}
-          </p>
-        </article>
-      ))}
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+      {
+        tr.services.items.map((s, i) => (
+          <article
+            id={s.id}
+            class={`card card-hover p-6 lg:p-7 flex flex-col scroll-reveal stagger-${Math.min((i % 3) + 1, 6)}`}
+          >
+            <span class="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-deep-blue/8 text-deep-blue mb-5">
+              <ServiceIcon name={s.icon} class="w-[22px] h-[22px]" />
+            </span>
+
+            <h3 class="text-[19px] font-bold text-charcoal tracking-tight leading-snug">{s.title}</h3>
+            <p class="mt-3 text-[14.5px] leading-relaxed text-slate-gray">{s.desc}</p>
+
+            <ul class="mt-5 pt-5 border-t border-line grid gap-2">
+              {s.points.map((p) => (
+                <li class="flex items-start gap-2.5 text-[13px] text-steel-blue">
+                  <svg class="w-4 h-4 mt-[1px] shrink-0 text-deep-blue" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5l3.2 3.2L15.5 6" />
+                  </svg>
+                  <span>{p}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
     </div>
   </div>
 </section>

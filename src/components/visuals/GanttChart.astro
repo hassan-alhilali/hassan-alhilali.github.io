@@ -1,0 +1,293 @@
+---
+/**
+ * Illustrative Primavera P6 style Gantt view.
+ * Pure SVG - no external assets, no runtime dependencies.
+ */
+interface Props {
+  legend?: { critical: string; normal: string; milestone: string; today: string };
+  title?: string;
+  note?: string;
+}
+
+const { legend, title = 'Baseline vs. progress', note = 'Illustrative schedule view' } = Astro.props;
+
+type Row =
+  | { kind: 'summary'; id: string; name: string; start: number; end: number }
+  | { kind: 'task'; id: string; name: string; start: number; end: number; pct: number; critical?: boolean }
+  | { kind: 'milestone'; id: string; name: string; at: number; critical?: boolean };
+
+const rows: Row[] = [
+  { kind: 'summary', id: 'ENG', name: 'Engineering', start: 0, end: 4.7 },
+  { kind: 'task', id: 'A1010', name: 'Basis of Design', start: 0, end: 1.1, pct: 100 },
+  { kind: 'task', id: 'A1020', name: 'FEED Package', start: 1.0, end: 2.4, pct: 100 },
+  { kind: 'task', id: 'A1030', name: 'Detailed Design', start: 2.3, end: 4.7, pct: 82, critical: true },
+  { kind: 'summary', id: 'PRO', name: 'Procurement', start: 2.5, end: 6.6 },
+  { kind: 'task', id: 'A2010', name: 'Long-Lead Equipment PO', start: 2.6, end: 6.4, pct: 71, critical: true },
+  { kind: 'task', id: 'A2020', name: 'Bulk Materials', start: 3.4, end: 5.5, pct: 88 },
+  { kind: 'milestone', id: 'MS010', name: 'Equipment on Site', at: 6.5, critical: true },
+  { kind: 'summary', id: 'CON', name: 'Construction', start: 4.6, end: 10.4 },
+  { kind: 'task', id: 'A3010', name: 'Civil & Foundations', start: 4.6, end: 6.7, pct: 46, critical: true },
+  { kind: 'task', id: 'A3020', name: 'Mechanical Erection', start: 6.6, end: 9.1, pct: 0, critical: true },
+  { kind: 'task', id: 'A3030', name: 'Piping & E&I', start: 7.4, end: 10.3, pct: 0 },
+  { kind: 'summary', id: 'COM', name: 'Commissioning', start: 9.1, end: 11.6 },
+  { kind: 'task', id: 'A4010', name: 'Pre-Commissioning', start: 9.1, end: 10.9, pct: 0, critical: true },
+  { kind: 'milestone', id: 'MS020', name: 'Ready for Start-Up', at: 11.5, critical: true },
+];
+
+const W = 880;
+const nameX = 18;
+const nameW = 250;
+const chartX = 276;
+const chartW = W - chartX - 20;
+const months = 12;
+const colW = chartW / months;
+const headerH = 44;
+const axisY = headerH + 26;
+const rowH = 25;
+const firstRowY = axisY + 16;
+const H = firstRowY + rows.length * rowH + 22;
+
+const x = (m: number) => chartX + m * colW;
+const dataDate = 5.9;
+
+const monthLabels = ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12'];
+
+// Relationship arrows: [fromRowIndex, toRowIndex]
+const links: Array<[number, number]> = [
+  [1, 2],
+  [2, 3],
+  [3, 5],
+  [5, 7],
+  [3, 9],
+  [9, 10],
+  [10, 13],
+];
+
+function rowY(i: number) {
+  return firstRowY + i * rowH;
+}
+function barEnd(r: Row) {
+  return r.kind === 'milestone' ? r.at : r.end;
+}
+function barStart(r: Row) {
+  return r.kind === 'milestone' ? r.at : r.start;
+}
+
+const lg = legend ?? { critical: 'Critical path', normal: 'Non-critical', milestone: 'Milestone', today: 'Data date' };
+---
+
+<figure class="not-prose" dir="ltr" role="img" aria-label={`${title} — ${note}`}>
+  <div
+    class="rounded-2xl border border-white/10 bg-navy/95 shadow-[0_40px_80px_-40px_rgba(0,0,0,0.8)] overflow-hidden backdrop-blur-sm"
+  >
+    <!-- window chrome -->
+    <div class="flex items-center gap-2 px-4 h-11 border-b border-white/8 bg-white/[0.03]">
+      <span class="w-2.5 h-2.5 rounded-full bg-critical/70"></span>
+      <span class="w-2.5 h-2.5 rounded-full bg-amber/70"></span>
+      <span class="w-2.5 h-2.5 rounded-full bg-success-green/70"></span>
+      <span class="ms-3 text-[11px] font-medium tracking-wide text-white/45 truncate">{title}</span>
+      <span class="ms-auto text-[10px] font-mono text-white/25 hidden sm:inline">{note}</span>
+    </div>
+
+    <div class="overflow-x-auto">
+    <svg viewBox={`0 0 ${W} ${H}`} class="w-full h-auto block min-w-[600px]" aria-hidden="true">
+      <defs>
+        <linearGradient id="gx-normal" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#2563EB" />
+          <stop offset="100%" stop-color="#3B82F6" />
+        </linearGradient>
+        <linearGradient id="gx-critical" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#B91C1C" />
+          <stop offset="100%" stop-color="#EF4444" />
+        </linearGradient>
+        <linearGradient id="gx-summary" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#475569" />
+          <stop offset="100%" stop-color="#64748B" />
+        </linearGradient>
+      </defs>
+
+      <!-- column header -->
+      <text x={nameX} y={headerH - 14} fill="#64748B" font-size="10" font-weight="600" letter-spacing="1.4">ACTIVITY</text>
+      <text x={chartX} y={headerH - 14} fill="#64748B" font-size="10" font-weight="600" letter-spacing="1.4">SCHEDULE</text>
+      <line x1="0" y1={headerH - 4} x2={W} y2={headerH - 4} stroke="rgba(148,163,184,0.16)" stroke-width="1" />
+
+      <!-- month grid -->
+      {
+        monthLabels.map((m, i) => (
+          <g>
+            <line
+              x1={x(i)}
+              y1={axisY - 12}
+              x2={x(i)}
+              y2={H - 14}
+              stroke="rgba(148,163,184,0.09)"
+              stroke-width="1"
+            />
+            <text x={x(i) + colW / 2} y={axisY} fill="#64748B" font-size="9.5" text-anchor="middle" font-family="monospace">
+              {m}
+            </text>
+          </g>
+        ))
+      }
+      <line x1={chartX} y1={axisY + 7} x2={W - 20} y2={axisY + 7} stroke="rgba(148,163,184,0.16)" stroke-width="1" />
+      <line x1={chartX - 8} y1={headerH - 4} x2={chartX - 8} y2={H - 14} stroke="rgba(148,163,184,0.14)" stroke-width="1" />
+
+      <!-- relationship arrows (drawn under bars) -->
+      {
+        links.map(([a, b]) => {
+          const ra = rows[a];
+          const rb = rows[b];
+          const x1 = x(barEnd(ra));
+          const y1 = rowY(a) + rowH / 2;
+          const x2 = x(barStart(rb));
+          const y2 = rowY(b) + rowH / 2;
+          const midX = Math.max(x1 + 7, x2 - 9);
+          return (
+            <path
+              d={`M ${x1} ${y1} H ${midX} V ${y2} H ${x2 - 3}`}
+              fill="none"
+              stroke="rgba(148,163,184,0.42)"
+              stroke-width="1"
+            />
+          );
+        })
+      }
+
+      <!-- rows -->
+      {
+        rows.map((r, i) => {
+          const y = rowY(i);
+          const barY = y + 6;
+          const barH = 11;
+          const isSummary = r.kind === 'summary';
+          const isMs = r.kind === 'milestone';
+          const label = isSummary ? r.name : `${r.id}  ${r.name}`;
+          const indent = isSummary ? 0 : 14;
+          const delay = `${i * 55}ms`;
+          return (
+            <g>
+              {i % 2 === 1 && <rect x="0" y={y} width={W} height={rowH} fill="rgba(255,255,255,0.018)" />}
+
+              {isSummary && (
+                <rect x={nameX - 6} y={y + 3} width={nameW + 8} height={rowH - 6} rx="3" fill="rgba(255,255,255,0.035)" />
+              )}
+
+              <text
+                x={nameX + indent}
+                y={y + 16}
+                fill={isSummary ? '#E2E8F0' : '#94A3B8'}
+                font-size={isSummary ? '11.5' : '11'}
+                font-weight={isSummary ? '700' : '400'}
+              >
+                {label.length > 34 ? label.slice(0, 33) + '…' : label}
+              </text>
+
+              {isSummary && (
+                <g>
+                  <path
+                    d={`M ${x(r.start)} ${barY + 2} H ${x(r.end)} V ${barY + 8} L ${x(r.end) - 5} ${barY + 3} H ${x(r.start) + 5} L ${x(r.start)} ${barY + 8} Z`}
+                    fill="url(#gx-summary)"
+                    class="gantt-bar"
+                    style={`animation-delay:${delay}`}
+                  />
+                </g>
+              )}
+
+              {r.kind === 'task' && (
+                <g class="gantt-bar" style={`animation-delay:${delay}`}>
+                  {/* baseline ghost */}
+                  <rect
+                    x={x(r.start)}
+                    y={barY + barH - 1}
+                    width={Math.max(3, x(r.end) - x(r.start))}
+                    height="3"
+                    rx="1.5"
+                    fill="rgba(148,163,184,0.30)"
+                  />
+                  <rect
+                    x={x(r.start)}
+                    y={barY}
+                    width={Math.max(3, x(r.end) - x(r.start))}
+                    height={barH}
+                    rx="2.5"
+                    fill={r.critical ? 'url(#gx-critical)' : 'url(#gx-normal)'}
+                    opacity="0.42"
+                  />
+                  {r.pct > 0 && (
+                    <rect
+                      x={x(r.start)}
+                      y={barY}
+                      width={Math.max(3, (x(r.end) - x(r.start)) * (r.pct / 100))}
+                      height={barH}
+                      rx="2.5"
+                      fill={r.critical ? 'url(#gx-critical)' : 'url(#gx-normal)'}
+                    />
+                  )}
+                  <text
+                    x={x(r.end) + 7}
+                    y={barY + barH - 1.5}
+                    fill={r.critical ? '#FCA5A5' : '#7DA2E8'}
+                    font-size="9"
+                    font-family="monospace"
+                  >
+                    {r.pct}%
+                  </text>
+                </g>
+              )}
+
+              {isMs && (
+                <g class="gantt-bar" style={`animation-delay:${delay}`}>
+                  <path
+                    d={`M ${x(r.at)} ${barY - 1} l 7 6.5 l -7 6.5 l -7 -6.5 Z`}
+                    fill="#F59E0B"
+                    stroke="#FDE68A"
+                    stroke-width="0.8"
+                  />
+                  <text
+                    x={r.at > 9 ? x(r.at) - 12 : x(r.at) + 12}
+                    y={barY + 9}
+                    text-anchor={r.at > 9 ? 'end' : 'start'}
+                    fill="#FCD34D"
+                    font-size="9"
+                    font-weight="600"
+                  >
+                    {r.name}
+                  </text>
+                </g>
+              )}
+            </g>
+          );
+        })
+      }
+
+      <!-- data date -->
+      <line
+        x1={x(dataDate)}
+        y1={axisY + 8}
+        x2={x(dataDate)}
+        y2={H - 14}
+        stroke="#F59E0B"
+        stroke-width="1.4"
+        stroke-dasharray="4 4"
+        opacity="0.9"
+      />
+      <rect x={x(dataDate) - 26} y={axisY - 8} width="52" height="14" rx="7" fill="#F59E0B" />
+      <text x={x(dataDate)} y={axisY + 2} fill="#0B1220" font-size="8.5" font-weight="700" text-anchor="middle">
+        DATA DATE
+      </text>
+    </svg>
+    </div>
+
+    <!-- legend -->
+    <div class="flex flex-wrap items-center gap-x-5 gap-y-2 px-4 py-3 border-t border-white/8 bg-white/[0.02] text-[11px] text-white/50">
+      <span class="inline-flex items-center gap-2"><span class="w-6 h-2 rounded-sm bg-critical"></span>{lg.critical}</span>
+      <span class="inline-flex items-center gap-2"><span class="w-6 h-2 rounded-sm bg-deep-blue"></span>{lg.normal}</span>
+      <span class="inline-flex items-center gap-2"
+        ><span class="w-2.5 h-2.5 rotate-45 bg-amber inline-block"></span>{lg.milestone}</span
+      >
+      <span class="inline-flex items-center gap-2"
+        ><span class="w-6 h-px border-t border-dashed border-amber inline-block"></span>{lg.today}</span
+      >
+    </div>
+  </div>
+</figure>

@@ -1,37 +1,12 @@
 [
-  {
-    "id": "primavera-p6",
-    "name": "Primavera P6",
-    "category": "core"
-  },
-  {
-    "id": "microsoft-project",
-    "name": "Microsoft Project",
-    "category": "core"
-  },
-  {
-    "id": "microsoft-excel",
-    "name": "Microsoft Excel",
-    "category": "core"
-  },
-  {
-    "id": "power-bi",
-    "name": "Power BI",
-    "category": "core"
-  },
-  {
-    "id": "python",
-    "name": "Python",
-    "category": "data"
-  },
-  {
-    "id": "sql-sqlite",
-    "name": "SQL/SQLite",
-    "category": "data"
-  },
-  {
-    "id": "powershell",
-    "name": "PowerShell",
-    "category": "data"
-  }
+  { "id": "primavera-p6", "name": { "en": "Primavera P6 (Professional & EPPM)", "ar": "بريمافيرا P6 (Professional و EPPM)" }, "category": "core" },
+  { "id": "microsoft-project", "name": { "en": "Microsoft Project", "ar": "مايكروسوفت بروجكت" }, "category": "core" },
+  { "id": "evm", "name": { "en": "Earned Value Management", "ar": "إدارة القيمة المكتسبة" }, "category": "core" },
+  { "id": "risk", "name": { "en": "Schedule & Cost Risk Analysis", "ar": "تحليل مخاطر الجدول والتكلفة" }, "category": "core" },
+  { "id": "microsoft-excel", "name": { "en": "Microsoft Excel (advanced modelling)", "ar": "مايكروسوفت إكسل (نمذجة متقدمة)" }, "category": "core" },
+  { "id": "power-bi", "name": { "en": "Power BI", "ar": "Power BI" }, "category": "data" },
+  { "id": "python", "name": { "en": "Python (data automation)", "ar": "بايثون (أتمتة البيانات)" }, "category": "data" },
+  { "id": "sql-sqlite", "name": { "en": "SQL / SQLite", "ar": "SQL / SQLite" }, "category": "data" },
+  { "id": "powershell", "name": { "en": "PowerShell", "ar": "PowerShell" }, "category": "data" },
+  { "id": "xer", "name": { "en": "XER / XML schedule data handling", "ar": "معالجة بيانات الجداول XER / XML" }, "category": "data" }
 ]

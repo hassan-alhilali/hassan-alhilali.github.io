@@ -1,26 +1,103 @@
 ---
+import { t, type Lang } from '../i18n/content';
 import siteData from '../data/site.json';
+import GanttChart from './visuals/GanttChart.astro';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const tr = t(lang);
 ---
 
-<section id="hero" class="bg-charcoal text-white pt-28 pb-20 sm:pt-36 sm:pb-24 lg:pt-48 lg:py-40" aria-label="Hero section">
-  <div class="max-w-content mx-auto px-6 lg:px-8">
-    <h1 class="text-hero-sm sm:text-hero font-bold tracking-tight mb-5 hero-animate">
-      {siteData.fullName}
-    </h1>
+<section id="hero" class="relative bg-navy text-white overflow-hidden" aria-label={tr.hero.eyebrow}>
+  <!-- photographic base -->
+  <div class="absolute inset-0" aria-hidden="true">
+    <img src="/images/hero-bg.jpg" alt="" class="w-full h-full object-cover opacity-[0.09] scale-105" fetchpriority="high" />
+  </div>
+  <!-- gradient + grid -->
+  <div
+    class="absolute inset-0"
+    aria-hidden="true"
+    style="background:
+      radial-gradient(900px 520px at 12% 0%, rgba(37,99,235,0.30), transparent 62%),
+      radial-gradient(720px 480px at 88% 14%, rgba(59,130,246,0.16), transparent 60%),
+      linear-gradient(180deg, rgba(7,11,20,0.55) 0%, rgba(11,18,32,0.90) 55%, #0B1220 100%);"
+  >
+  </div>
+  <div
+    class="absolute inset-0 opacity-[0.35]"
+    aria-hidden="true"
+    style="background-image:
+      linear-gradient(to right, rgba(148,163,184,0.07) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(148,163,184,0.07) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(80% 60% at 50% 30%, #000 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(80% 60% at 50% 30%, #000 40%, transparent 100%);"
+  >
+  </div>
 
-    <p class="text-lg sm:text-xl text-warm-gray font-medium mb-6 max-w-xl hero-animate hero-animate-delay-1">
-      {siteData.title}
-    </p>
+  <div class="relative max-w-content mx-auto px-5 sm:px-6 lg:px-8 pt-28 pb-16 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-28">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+      <!-- copy -->
+      <div class="lg:col-span-5">
+        <p
+          class="hero-animate inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full border border-white/15 bg-white/[0.06] text-[11.5px] font-semibold tracking-wide text-sky"
+        >
+          <span class="relative flex w-1.5 h-1.5">
+            <span class="absolute inline-flex w-full h-full rounded-full bg-bright-blue opacity-70 animate-ping"></span>
+            <span class="relative inline-flex w-1.5 h-1.5 rounded-full bg-bright-blue"></span>
+          </span>
+          {tr.hero.eyebrow}
+        </p>
 
-    <p class="text-base sm:text-lg text-slate-gray max-w-prose mb-10 leading-relaxed hero-animate hero-animate-delay-2">
-      {siteData.valueProposition}
-    </p>
+        <h1 class="hero-animate hero-animate-delay-1 mt-6 text-hero-sm sm:text-[3.4rem] lg:text-[3.5rem] font-extrabold leading-[1.08] tracking-tight text-white">
+          {tr.hero.title}
+        </h1>
 
-    <a
-      href="#contact"
-      class="inline-flex items-center px-7 py-3.5 text-base font-medium text-white bg-deep-blue rounded-full hover:bg-deep-blue/85 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-deep-blue focus:ring-offset-2 focus:ring-offset-charcoal hero-animate hero-animate-delay-3"
-    >
-      Discuss a Project
-    </a>
+        <p class="hero-animate hero-animate-delay-2 mt-6 text-[17px] leading-relaxed text-white/62 max-w-[34rem]">
+          {tr.hero.lead}
+        </p>
+
+        <div class="hero-animate hero-animate-delay-3 mt-9 flex flex-wrap items-center gap-3">
+          <a href="#contact" class="btn-primary shadow-[0_16px_36px_-16px_rgba(37,99,235,0.9)]">
+            {tr.cta.primary}
+            <svg class="w-4 h-4 rtl:rotate-180" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 10h11m0 0-4-4m4 4-4 4" />
+            </svg>
+          </a>
+          <a href="#services" class="btn-ghost-dark">{tr.cta.secondary}</a>
+        </div>
+
+        <ul class="hero-animate hero-animate-delay-4 mt-10 flex flex-wrap gap-x-2 gap-y-2" aria-label="Toolset">
+          {
+            tr.hero.badges.map((b) => (
+              <li class="px-3 py-1.5 rounded-md border border-white/10 bg-white/[0.04] text-[11.5px] font-medium text-white/55">
+                {b}
+              </li>
+            ))
+          }
+        </ul>
+
+        <p class="hero-animate hero-animate-delay-5 mt-8 text-[13px] text-white/35">
+          {siteData.fullName[lang]} · {siteData.title[lang]}
+        </p>
+      </div>
+
+      <!-- gantt -->
+      <div class="lg:col-span-7 hero-animate hero-animate-delay-3">
+        <div class="relative">
+          <div
+            class="absolute -inset-6 rounded-[2rem] opacity-60 blur-2xl"
+            aria-hidden="true"
+            style="background: radial-gradient(60% 60% at 50% 40%, rgba(37,99,235,0.35), transparent 70%);"
+          >
+          </div>
+          <div class="relative">
+            <GanttChart legend={tr.showcase.legend} title={tr.hero.chartTitle} note={tr.hero.chartNote} />
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>

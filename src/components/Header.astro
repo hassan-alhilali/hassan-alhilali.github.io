@@ -1,111 +1,220 @@
 ---
-const navLinks = [
-  { label: 'Services', href: '#services' },
-  { label: 'Expertise', href: '#expertise' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'About', href: '#about' },
-  { label: 'Contact', href: '#contact' },
-];
+import { t, localePath, type Lang } from '../i18n/content';
+import siteData from '../data/site.json';
+import LogoMark from './visuals/LogoMark.astro';
 
-const ctaLabel = 'Discuss a Project';
-const ctaEmail = 'hassan268@gmail.com';
-const siteName = 'Hassan Al-Hilali';
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const tr = t(lang);
+const other: Lang = lang === 'en' ? 'ar' : 'en';
+
+const navLinks = [
+  { label: tr.nav.services, href: '#services' },
+  { label: tr.nav.p6, href: '#schedule-quality' },
+  { label: tr.nav.approach, href: '#approach' },
+  { label: tr.nav.deliverables, href: '#deliverables' },
+  { label: tr.nav.expertise, href: '#expertise' },
+  { label: tr.nav.about, href: '#about' },
+];
 ---
 
-<header id="site-header" class="fixed top-0 left-0 right-0 z-50 bg-off-white/80 backdrop-blur-md border-b border-transparent transition-all duration-300" aria-label="Site header">
-  <nav class="max-w-content mx-auto flex items-center justify-between px-6 lg:px-8 h-14 lg:h-16" aria-label="Main navigation">
-    <a href="/" class="text-base font-semibold text-charcoal tracking-tight hover:text-deep-blue transition-colors" aria-label={`${siteName} - Home`}>
-      {siteName}
+<header
+  id="site-header"
+  data-state="top"
+  class="fixed top-0 inset-x-0 z-50 transition-[background-color,box-shadow,border-color] duration-300 border-b border-transparent"
+>
+  <nav class="max-w-content mx-auto flex items-center gap-4 px-5 sm:px-6 lg:px-8 h-16 lg:h-[68px]" aria-label={tr.nav.home}>
+    <a
+      href={localePath(lang)}
+      class="flex items-center gap-2.5 shrink-0 group"
+      aria-label={`${siteData.compactName[lang]} — ${tr.nav.home}`}
+    >
+      <span class="hd-logo-dark hidden"><LogoMark tone="dark" class="w-8 h-8" /></span>
+      <span class="hd-logo-light"><LogoMark tone="light" class="w-8 h-8" /></span>
+      <span class="hd-brand text-[15px] font-bold tracking-tight leading-none">{siteData.compactName[lang]}</span>
     </a>
 
-    <ul class="hidden lg:flex items-center gap-8">
-      {navLinks.map((link) => (
-        <li>
-          <a href={link.href} class="text-sm font-medium text-slate-gray hover:text-charcoal transition-colors duration-200">
-            {link.label}
-          </a>
-        </li>
-      ))}
+    <ul class="hidden lg:flex items-center gap-7 mx-auto">
+      {
+        navLinks.map((link) => (
+          <li>
+            <a href={link.href} data-nav-link class="hd-link text-[13.5px] font-medium">
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
     </ul>
 
-    <a
-      href={`mailto:${ctaEmail}`}
-      class="hidden lg:inline-flex items-center px-5 py-2 text-sm font-medium text-charcoal border border-charcoal/20 rounded-full hover:bg-charcoal hover:text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-charcoal focus:ring-offset-2"
-      aria-label={`${ctaLabel} via email`}
-    >
-      {ctaLabel}
-    </a>
+    <div class="ms-auto lg:ms-0 flex items-center gap-2.5">
+      <a
+        href={localePath(other)}
+        class="hd-lang inline-flex items-center gap-1.5 px-3 h-9 rounded-full text-[12.5px] font-semibold border transition-colors"
+        hreflang={other}
+        title={tr.meta.switchTitle}
+      >
+        <svg class="w-3.5 h-3.5 opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18" />
+        </svg>
+        {tr.meta.switchLabel}
+      </a>
 
-    <button
-      id="mobile-menu-toggle"
-      type="button"
-      class="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-slate-gray hover:text-charcoal focus:outline-none focus:ring-2 focus:ring-inset focus:ring-charcoal"
-      aria-expanded="false"
-      aria-controls="mobile-menu"
-      aria-label="Toggle navigation menu"
-    >
-      <svg id="menu-icon-open" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-      </svg>
-      <svg id="menu-icon-close" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-      </svg>
-    </button>
+      <a href="#contact" class="hd-cta hidden sm:inline-flex items-center px-4 h-9 rounded-full text-[12.5px] font-semibold transition-colors">
+        {tr.cta.primary}
+      </a>
+
+      <button
+        id="menu-toggle"
+        type="button"
+        class="hd-burger lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label={tr.nav.menu}
+      >
+        <svg id="icon-open" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+          <path stroke-linecap="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+        <svg id="icon-close" class="w-5 h-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+          <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
   </nav>
 
-  <div id="mobile-menu" class="lg:hidden hidden border-t border-gray-100 bg-off-white/95 backdrop-blur-md" aria-label="Mobile navigation">
-    <div class="px-6 pt-4 pb-6 space-y-1">
-      {navLinks.map((link) => (
-        <a
-          href={link.href}
-          class="flex items-center px-3 py-3 min-h-[44px] text-base font-medium text-slate-gray hover:text-charcoal transition-colors duration-200"
-        >
-          {link.label}
-        </a>
-      ))}
+  <div id="mobile-menu" class="lg:hidden hidden bg-white border-t border-line shadow-lg">
+    <div class="px-5 py-4 space-y-0.5">
+      {
+        navLinks.map((link) => (
+          <a
+            href={link.href}
+            class="flex items-center px-3 min-h-[46px] rounded-lg text-[15px] font-medium text-slate-gray hover:text-charcoal hover:bg-off-white transition-colors"
+          >
+            {link.label}
+          </a>
+        ))
+      }
       <a
-        href={`mailto:${ctaEmail}`}
-        class="flex items-center justify-center mt-4 px-4 py-3 min-h-[44px] text-sm font-medium text-charcoal border border-charcoal/20 rounded-full hover:bg-charcoal hover:text-white transition-all duration-200"
-        aria-label={`${ctaLabel} via email`}
+        href="#contact"
+        class="flex items-center justify-center mt-3 px-4 min-h-[48px] rounded-full text-[15px] font-semibold text-white bg-deep-blue"
       >
-        {ctaLabel}
+        {tr.cta.primary}
       </a>
     </div>
   </div>
 </header>
 
+<style>
+  /* transparent over the dark hero */
+  #site-header[data-state='top'] .hd-brand {
+    color: #fff;
+  }
+  #site-header[data-state='top'] .hd-link {
+    color: rgba(255, 255, 255, 0.72);
+  }
+  #site-header[data-state='top'] .hd-link:hover,
+  #site-header[data-state='top'] .hd-link.is-active {
+    color: #fff;
+  }
+  #site-header[data-state='top'] .hd-lang {
+    color: rgba(255, 255, 255, 0.88);
+    border-color: rgba(255, 255, 255, 0.24);
+  }
+  #site-header[data-state='top'] .hd-lang:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+  #site-header[data-state='top'] .hd-cta {
+    color: #0b1220;
+    background: #fff;
+  }
+  #site-header[data-state='top'] .hd-cta:hover {
+    background: rgba(255, 255, 255, 0.86);
+  }
+  #site-header[data-state='top'] .hd-burger {
+    color: #fff;
+  }
+
+  /* solid once scrolled */
+  #site-header[data-state='scrolled'] {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(14px);
+    border-bottom-color: #e4e8ef;
+  }
+  #site-header[data-state='scrolled'] .hd-brand {
+    color: #141a2e;
+  }
+  #site-header[data-state='scrolled'] .hd-link {
+    color: #4a5568;
+  }
+  #site-header[data-state='scrolled'] .hd-link:hover,
+  #site-header[data-state='scrolled'] .hd-link.is-active {
+    color: #2563eb;
+  }
+  #site-header[data-state='scrolled'] .hd-lang {
+    color: #141a2e;
+    border-color: rgba(20, 26, 46, 0.18);
+  }
+  #site-header[data-state='scrolled'] .hd-lang:hover {
+    background: #f7f8fa;
+  }
+  #site-header[data-state='scrolled'] .hd-cta {
+    color: #fff;
+    background: #2563eb;
+  }
+  #site-header[data-state='scrolled'] .hd-cta:hover {
+    background: rgba(37, 99, 235, 0.88);
+  }
+  #site-header[data-state='scrolled'] .hd-burger {
+    color: #141a2e;
+  }
+  #site-header[data-state='scrolled'] .hd-logo-light {
+    display: none;
+  }
+  #site-header[data-state='scrolled'] .hd-logo-dark {
+    display: inline-flex;
+  }
+
+  .hd-link {
+    position: relative;
+    padding-bottom: 3px;
+  }
+  .hd-link.is-active::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 1.5px;
+    background: currentColor;
+    opacity: 0.55;
+  }
+</style>
+
 <script>
   const header = document.getElementById('site-header');
-  const toggle = document.getElementById('mobile-menu-toggle');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const iconOpen = document.getElementById('menu-icon-open');
-  const iconClose = document.getElementById('menu-icon-close');
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('icon-open');
+  const iconClose = document.getElementById('icon-close');
 
-  let menuOpen = false;
-
-  function toggleMenu() {
-    menuOpen = !menuOpen;
-    if (mobileMenu && toggle && iconOpen && iconClose) {
-      mobileMenu.classList.toggle('hidden', !menuOpen);
-      iconOpen.classList.toggle('hidden', menuOpen);
-      iconClose.classList.toggle('hidden', !menuOpen);
-      toggle.setAttribute('aria-expanded', String(menuOpen));
-    }
+  let open = false;
+  function setMenu(next: boolean) {
+    open = next;
+    menu?.classList.toggle('hidden', !open);
+    iconOpen?.classList.toggle('hidden', open);
+    iconClose?.classList.toggle('hidden', !open);
+    toggle?.setAttribute('aria-expanded', String(open));
+    if (open) header?.setAttribute('data-state', 'scrolled');
+    else onScroll();
   }
 
-  if (toggle) {
-    toggle.addEventListener('click', toggleMenu);
-  }
+  toggle?.addEventListener('click', () => setMenu(!open));
+  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
 
   function onScroll() {
-    if (!header) return;
-    if (window.scrollY > 20) {
-      header.classList.add('shadow-sm');
-      header.style.borderBottomColor = 'rgba(0,0,0,0.06)';
-    } else {
-      header.classList.remove('shadow-sm');
-      header.style.borderBottomColor = 'transparent';
-    }
+    if (!header || open) return;
+    header.setAttribute('data-state', window.scrollY > 24 ? 'scrolled' : 'top');
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });

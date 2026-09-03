@@ -1,0 +1,144 @@
+---
+/**
+ * Illustrative earned value S-curve: PV / EV / AC with variance band.
+ */
+interface Props {
+  legend?: { pv: string; ev: string; ac: string; date: string };
+  title?: string;
+}
+
+const {
+  legend = { pv: 'Planned value (PV)', ev: 'Earned value (EV)', ac: 'Actual cost (AC)', date: 'Data date' },
+  title = 'Cumulative cost performance',
+} = Astro.props;
+
+const W = 660;
+const H = 330;
+const padL = 44;
+const padR = 18;
+const padT = 18;
+const padB = 40;
+const periods = 12;
+const dataDate = 7;
+
+const px = (t: number) => padL + (t / periods) * (W - padL - padR);
+const py = (v: number) => H - padB - (v / 100) * (H - padT - padB);
+
+const logistic = (t: number, k: number, t0: number) => 1 / (1 + Math.exp(-k * (t - t0)));
+const norm = (t: number, k: number, t0: number) => {
+  const a = logistic(0, k, t0);
+  const b = logistic(periods, k, t0);
+  return ((logistic(t, k, t0) - a) / (b - a)) * 100;
+};
+
+const steps = 60;
+const pv: Array<[number, number]> = [];
+const ev: Array<[number, number]> = [];
+const ac: Array<[number, number]> = [];
+
+for (let i = 0; i <= steps; i++) {
+  const t = (i / steps) * periods;
+  pv.push([t, norm(t, 0.72, 5.9)]);
+}
+// EV lags the plan in time (behind schedule); AC tracks EV but costs more.
+for (let i = 0; i <= steps; i++) {
+  const t = (i / steps) * dataDate;
+  const evVal = norm(Math.max(0, t - 1.15), 0.72, 5.9);
+  ev.push([t, evVal]);
+  ac.push([t, Math.min(100, evVal * 1.16 + 2.2)]);
+}
+
+function pathOf(pts: Array<[number, number]>) {
+  return pts.map(([t, v], i) => `${i === 0 ? 'M' : 'L'} ${px(t).toFixed(1)} ${py(v).toFixed(1)}`).join(' ');
+}
+
+const bandPath =
+  pathOf(pv.filter(([t]) => t <= dataDate)) +
+  ' ' +
+  ev
+    .slice()
+    .reverse()
+    .map(([t, v]) => `L ${px(t).toFixed(1)} ${py(v).toFixed(1)}`)
+    .join(' ') +
+  ' Z';
+
+const gridY = [0, 25, 50, 75, 100];
+const monthLabels = Array.from({ length: periods }, (_, i) => `M${i + 1}`);
+
+const kpis = [
+  { k: 'SPI', v: '0.86', tone: 'warn' },
+  { k: 'CPI', v: '0.92', tone: 'warn' },
+  { k: 'EV', v: '58.4%', tone: 'ok' },
+  { k: 'VAC', v: '-4.1%', tone: 'warn' },
+];
+---
+
+<figure class="card p-5 sm:p-6 shadow-[0_24px_60px_-40px_rgba(15,23,42,0.45)]" dir="ltr" role="img" aria-label={title}>
+  <div class="flex flex-wrap items-center gap-3 mb-4">
+    <p class="text-sm font-semibold text-charcoal">{title}</p>
+    <div class="ms-auto flex items-center gap-2">
+      {
+        kpis.map((kpi) => (
+          <span
+            class="inline-flex items-baseline gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-mono border"
+            style={
+              kpi.tone === 'warn'
+                ? 'background:#FFFBEB;border-color:#FDE68A;color:#92400E'
+                : 'background:#F0FDF4;border-color:#BBF7D0;color:#15803D'
+            }
+          >
+            <span class="font-semibold">{kpi.k}</span>
+            <span>{kpi.v}</span>
+          </span>
+        ))
+      }
+    </div>
+  </div>
+
+  <svg viewBox={`0 0 ${W} ${H}`} class="w-full h-auto block" aria-hidden="true">
+    <!-- grid -->
+    {
+      gridY.map((g) => (
+        <g>
+          <line x1={padL} y1={py(g)} x2={W - padR} y2={py(g)} stroke="#E4E8EF" stroke-width="1" />
+          <text x={padL - 8} y={py(g) + 3.5} text-anchor="end" font-size="10" fill="#94A3B8" font-family="monospace">
+            {g}%
+          </text>
+        </g>
+      ))
+    }
+    {
+      monthLabels.map((m, i) => (
+        <text x={px(i + 0.5)} y={H - padB + 16} text-anchor="middle" font-size="9.5" fill="#94A3B8" font-family="monospace">
+          {m}
+        </text>
+      ))
+    }
+
+    <!-- variance band -->
+    <path d={bandPath} fill="#F59E0B" opacity="0.13" />
+
+    <!-- data date -->
+    <line x1={px(dataDate)} y1={padT} x2={px(dataDate)} y2={H - padB} stroke="#F59E0B" stroke-width="1.3" stroke-dasharray="4 4" />
+    <text x={px(dataDate) + 6} y={padT + 11} font-size="9.5" fill="#B45309" font-weight="600">{legend.date}</text>
+
+    <!-- curves -->
+    <path d={pathOf(pv)} fill="none" stroke="#94A3B8" stroke-width="2" stroke-dasharray="5 4" class="curve-draw" />
+    <path d={pathOf(ac)} fill="none" stroke="#DC2626" stroke-width="2.2" stroke-linecap="round" class="curve-draw" style="animation-delay:250ms" />
+    <path d={pathOf(ev)} fill="none" stroke="#2563EB" stroke-width="2.6" stroke-linecap="round" class="curve-draw" style="animation-delay:120ms" />
+
+    <!-- end dots -->
+    <circle cx={px(dataDate)} cy={py(ev[ev.length - 1][1])} r="4" fill="#2563EB" stroke="#fff" stroke-width="2" />
+    <circle cx={px(dataDate)} cy={py(ac[ac.length - 1][1])} r="4" fill="#DC2626" stroke="#fff" stroke-width="2" />
+
+    <line x1={padL} y1={H - padB} x2={W - padR} y2={H - padB} stroke="#CBD5E1" stroke-width="1" />
+  </svg>
+
+  <div class="flex flex-wrap items-center gap-x-5 gap-y-2 mt-4 pt-4 border-t border-line text-[11.5px] text-slate-gray">
+    <span class="inline-flex items-center gap-2"
+      ><span class="w-6 h-0 border-t-2 border-dashed border-warm-gray inline-block"></span>{legend.pv}</span
+    >
+    <span class="inline-flex items-center gap-2"><span class="w-6 h-[3px] rounded bg-deep-blue inline-block"></span>{legend.ev}</span>
+    <span class="inline-flex items-center gap-2"><span class="w-6 h-[3px] rounded bg-critical inline-block"></span>{legend.ac}</span>
+  </div>
+</figure>

@@ -1,56 +1,70 @@
 ---
+import { t, type Lang } from '../i18n/content';
 import tools from '../data/tools.json';
 import sectors from '../data/sectors.json';
 
-const coreTools = tools.filter(tool => tool.category === 'core');
-const dataTools = tools.filter(tool => tool.category === 'data');
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const tr = t(lang);
+
+const core = tools.filter((x) => x.category === 'core');
+const data = tools.filter((x) => x.category === 'data');
 ---
 
-<section id="expertise" class="bg-white pt-24 pb-24 lg:pt-40 lg:pb-40" aria-labelledby="expertise-heading">
-  <div class="max-w-content mx-auto px-6 lg:px-8">
-    <div class="mb-16 lg:mb-20">
-      <h2 id="expertise-heading" class="text-section-sm sm:text-section font-semibold tracking-tight mb-4 scroll-reveal">
-        Expertise
+<section id="expertise" class="bg-off-white section-pad" aria-labelledby="expertise-heading">
+  <div class="max-w-content mx-auto px-5 sm:px-6 lg:px-8">
+    <div class="max-w-2xl mb-12 lg:mb-16">
+      <p class="eyebrow scroll-reveal">{tr.expertise.eyebrow}</p>
+      <h2 id="expertise-heading" class="mt-4 text-section-sm sm:text-section font-bold tracking-tight scroll-reveal stagger-2">
+        {tr.expertise.title}
       </h2>
-      <p class="text-lg text-slate-gray max-w-prose scroll-reveal stagger-1">
-        Tools, certifications, and industry experience I bring to every engagement.
-      </p>
+      <p class="mt-4 text-[17px] leading-relaxed text-slate-gray scroll-reveal stagger-3">{tr.expertise.lead}</p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 mb-16">
-      <article class="scroll-reveal stagger-2">
-        <h3 class="text-xl font-semibold text-charcoal mb-4 tracking-tight">Core Project Controls</h3>
-        <ul class="space-y-2">
-          {coreTools.map(tool => (
-            <li class="text-slate-gray text-base">
-              {tool.name}
-            </li>
-          ))}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <article class="card p-6 lg:p-7 scroll-reveal">
+        <h3 class="text-[13px] font-bold uppercase tracking-[0.14em] text-deep-blue">{tr.expertise.core}</h3>
+        <ul class="mt-5 flex flex-wrap gap-2">
+          {
+            core.map((x) => (
+              <li class="px-3 py-1.5 rounded-lg bg-off-white border border-line text-[13px] font-medium text-charcoal">
+                {x.name[lang]}
+              </li>
+            ))
+          }
         </ul>
       </article>
 
-      <article class="scroll-reveal stagger-3">
-        <h3 class="text-xl font-semibold text-charcoal mb-4 tracking-tight">Data &amp; Analytics</h3>
-        <ul class="space-y-2">
-          {dataTools.map(tool => (
-            <li class="text-slate-gray text-base">
-              {tool.name}
-            </li>
-          ))}
+      <article class="card p-6 lg:p-7 scroll-reveal stagger-2">
+        <h3 class="text-[13px] font-bold uppercase tracking-[0.14em] text-deep-blue">{tr.expertise.data}</h3>
+        <ul class="mt-5 flex flex-wrap gap-2">
+          {
+            data.map((x) => (
+              <li class="px-3 py-1.5 rounded-lg bg-off-white border border-line text-[13px] font-medium text-charcoal">
+                {x.name[lang]}
+              </li>
+            ))
+          }
         </ul>
       </article>
+
+      <article class="card p-6 lg:p-7 scroll-reveal stagger-3">
+        <h3 class="text-[13px] font-bold uppercase tracking-[0.14em] text-deep-blue">{tr.expertise.sectors}</h3>
+        <ul class="mt-5 flex flex-wrap gap-2">
+          {
+            sectors.map((x) => (
+              <li class="px-3 py-1.5 rounded-lg bg-charcoal/[0.04] border border-line text-[13px] font-medium text-charcoal">
+                {x.name[lang]}
+              </li>
+            ))
+          }
+        </ul>
+      </article>
+
+      <article class="card p-6 lg:p-7 scroll-reveal stagger-4">
+        <h3 class="text-[13px] font-bold uppercase tracking-[0.14em] text-deep-blue">{tr.expertise.certs}</h3>
+        <p class="mt-5 text-[14px] text-slate-gray">{tr.expertise.certsNote}</p>
+      </article>
     </div>
-
-    <article class="mb-16 scroll-reveal stagger-4">
-      <h3 class="text-xl font-semibold text-charcoal mb-4 tracking-tight">Industry Sectors</h3>
-      <p class="text-slate-gray text-base">
-        {sectors.map(sector => sector.name).join(' / ')}
-      </p>
-    </article>
-
-    <article class="scroll-reveal stagger-5">
-      <h3 class="text-xl font-semibold text-charcoal mb-2 tracking-tight">Certifications</h3>
-      <p class="text-slate-gray">Certifications coming soon.</p>
-    </article>
   </div>
 </section>

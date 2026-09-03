@@ -1,11 +1,30 @@
 {
-  "fullName": "Hassan Mohammed Laziz Al-Hilali",
-  "compactName": "Hassan Al-Hilali",
-  "title": "Planning & Project Controls Consultant",
-  "valueProposition": "Integrating planning, project controls, risk, and performance analytics to provide clearer project visibility and better decisions.",
-  "summary": "I help project teams improve planning, project controls, and project performance through an integrated approach that connects scheduling, cost control, risk, EVM, and reporting. My focus is on turning project data into clear, actionable information that supports better decisions throughout the project lifecycle.",
+  "fullName": {
+    "en": "Hassan Mohammed Laziz Al-Hilali",
+    "ar": "حسن محمد لذيذ الهلالي"
+  },
+  "compactName": {
+    "en": "Hassan Al-Hilali",
+    "ar": "حسن الهلالي"
+  },
+  "title": {
+    "en": "Primavera P6 & Project Controls Consultant",
+    "ar": "استشاري بريمافيرا P6 وضبط المشاريع"
+  },
   "email": "hassan268@gmail.com",
+  "phone": "",
   "linkedin": "",
-  "location": "Available Worldwide",
-  "availability": "Available for consulting engagements"
+  "whatsapp": "",
+  "location": {
+    "en": "Available worldwide · Remote & on-site",
+    "ar": "متاح عالميًا · عن بُعد وفي الموقع"
+  },
+  "availability": {
+    "en": "Open to consulting engagements",
+    "ar": "متاح لتكليفات استشارية"
+  },
+  "summary": {
+    "en": "I help project teams improve planning, project controls and project performance through an integrated approach that connects scheduling, cost control, risk, earned value and reporting. Primavera P6 sits at the centre of that work — building schedules that are structured, loaded and defensible, then keeping them honest through the update cycle. My focus is on turning project data into clear, actionable information that supports better decisions across the whole project lifecycle.",
+    "ar": "أساعد فرق المشاريع على تحسين التخطيط وضبط المشاريع والأداء عبر منهج متكامل يربط الجدولة وضبط التكلفة والمخاطر والقيمة المكتسبة والتقارير. وتقع بريمافيرا P6 في قلب هذا العمل — ببناء جداول مُهيكلة ومحمّلة وقابلة للدفاع عنها، ثم الحفاظ على مصداقيتها خلال دورات التحديث. وتركيزي منصبّ على تحويل بيانات المشروع إلى معلومات واضحة قابلة للتنفيذ تدعم قرارات أفضل عبر دورة حياة المشروع بأكملها."
+  }
 }

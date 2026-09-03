@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hassan-alhilali.github.io/sitemap.xml

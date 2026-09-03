@@ -1,0 +1,82 @@
+---
+/**
+ * Illustrative DCMA 14-point schedule health scorecard.
+ */
+interface Props {
+  heading?: string;
+  note?: string;
+  passLabel?: string;
+}
+
+const { heading = 'Schedule health check', note = 'Illustrative output', passLabel = 'PASS' } = Astro.props;
+
+const metrics = [
+  { name: 'Logic', value: '99.1%', pct: 99, target: '≥ 95%', state: 'ok' },
+  { name: 'Leads (negative lag)', value: '0', pct: 100, target: '= 0', state: 'ok' },
+  { name: 'Lags', value: '3.4%', pct: 92, target: '≤ 5%', state: 'ok' },
+  { name: 'Relationship types (FS)', value: '93%', pct: 93, target: '≥ 90%', state: 'ok' },
+  { name: 'Hard constraints', value: '1', pct: 88, target: '≤ 5%', state: 'ok' },
+  { name: 'High float', value: '6.1%', pct: 74, target: '≤ 5%', state: 'warn' },
+  { name: 'Negative float', value: '0', pct: 100, target: '= 0', state: 'ok' },
+  { name: 'High duration', value: '4.2%', pct: 90, target: '≤ 5%', state: 'ok' },
+  { name: 'Invalid dates', value: '0', pct: 100, target: '= 0', state: 'ok' },
+  { name: 'Resources loaded', value: '100%', pct: 100, target: '= 100%', state: 'ok' },
+  { name: 'Missed tasks', value: '2.8%', pct: 94, target: '≤ 5%', state: 'ok' },
+  { name: 'Critical path test', value: passLabel, pct: 100, target: passLabel, state: 'ok' },
+  { name: 'CPLI', value: '1.00', pct: 100, target: '≥ 0.95', state: 'ok' },
+  { name: 'BEI', value: '0.96', pct: 96, target: '≥ 0.95', state: 'ok' },
+];
+
+const score = 92;
+const R = 34;
+const C = 2 * Math.PI * R;
+const dash = (score / 100) * C;
+---
+
+<figure class="card p-6 sm:p-7 shadow-[0_24px_60px_-40px_rgba(15,23,42,0.45)]" dir="ltr" role="img" aria-label={`${heading}: ${score} / 100`}>
+  <div class="flex items-center gap-5 pb-5 mb-5 border-b border-line">
+    <svg viewBox="0 0 84 84" class="w-[76px] h-[76px] shrink-0" aria-hidden="true">
+      <circle cx="42" cy="42" r={R} fill="none" stroke="#E4E8EF" stroke-width="8" />
+      <circle
+        cx="42"
+        cy="42"
+        r={R}
+        fill="none"
+        stroke="#16A34A"
+        stroke-width="8"
+        stroke-linecap="round"
+        stroke-dasharray={`${dash} ${C}`}
+        transform="rotate(-90 42 42)"
+      />
+      <text x="42" y="46" text-anchor="middle" font-size="19" font-weight="700" fill="#141A2E">{score}</text>
+    </svg>
+    <div class="min-w-0">
+      <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-steel-blue">DCMA 14-Point</p>
+      <p class="text-base font-semibold text-charcoal mt-1 truncate">{heading}</p>
+      <p class="text-xs text-steel-blue mt-0.5">{note}</p>
+    </div>
+  </div>
+
+  <ul class="space-y-[7px]">
+    {
+      metrics.map((m) => (
+        <li class="flex items-center gap-3 text-[12.5px]">
+          <span class="w-[148px] shrink-0 text-slate-gray truncate">{m.name}</span>
+          <span class="flex-1 h-[6px] rounded-full bg-off-white overflow-hidden">
+            <span
+              class="block h-full rounded-full"
+              style={`width:${m.pct}%;background:${m.state === 'warn' ? '#F59E0B' : '#16A34A'}`}
+            />
+          </span>
+          <span
+            class="w-[52px] shrink-0 text-end font-mono text-[11.5px] font-medium"
+            style={`color:${m.state === 'warn' ? '#B45309' : '#141A2E'}`}
+          >
+            {m.value}
+          </span>
+          <span class="w-[46px] shrink-0 text-end font-mono text-[10.5px] text-warm-gray hidden sm:inline">{m.target}</span>
+        </li>
+      ))
+    }
+  </ul>
+</figure>

@@ -1,10 +1,5 @@
 [
-  {
-    "id": "oil-gas",
-    "name": "Oil & Gas"
-  },
-  {
-    "id": "construction",
-    "name": "Construction"
-  }
+  { "id": "oil-gas", "name": { "en": "Oil & Gas", "ar": "النفط والغاز" } },
+  { "id": "construction", "name": { "en": "Construction & Infrastructure", "ar": "الإنشاءات والبنى التحتية" } },
+  { "id": "industrial", "name": { "en": "Industrial & Utilities", "ar": "الصناعة والمرافق" } }
 ]

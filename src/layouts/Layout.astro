@@ -1,133 +1,169 @@
 ---
+import '../styles/global.css';
+import { languages, t, type Lang } from '../i18n/content';
+import siteData from '../data/site.json';
+
 export interface Props {
-  title?: string;
-  description?: string;
-  canonicalURL?: string;
-  ogImage?: string;
+  lang: Lang;
 }
 
-const {
-  title = "Hassan Al-Hilali | Planning & Project Controls Consultant",
-  description = "Integrating planning, project controls, risk, and performance analytics to provide clearer project visibility and better decisions.",
-  canonicalURL = "https://hassanalhilali.com",
-  ogImage = "/og-image.png"
-} = Astro.props;
+const { lang } = Astro.props;
+const tr = t(lang);
+const dir = languages[lang].dir;
+
+const base = Astro.site ?? new URL('https://hassan-alhilali.github.io');
+const canonical = new URL(Astro.url.pathname, base).href;
+const enHref = new URL('/', base).href;
+const arHref = new URL('/ar/', base).href;
+const ogImage = new URL('/images/og-image.png', base).href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: siteData.fullName[lang],
+  alternateName: siteData.compactName[lang],
+  description: tr.meta.description,
+  url: canonical,
+  email: `mailto:${siteData.email}`,
+  inLanguage: lang,
+  areaServed: 'Worldwide',
+  knowsAbout: [
+    'Primavera P6',
+    'Project Controls',
+    'Project Scheduling',
+    'Earned Value Management',
+    'Delay Analysis',
+    'DCMA 14-Point Assessment',
+    'Power BI reporting',
+  ],
+  serviceType: tr.services.items.map((s) => s.title),
+  provider: {
+    '@type': 'Person',
+    name: siteData.fullName[lang],
+    jobTitle: siteData.title[lang],
+    email: `mailto:${siteData.email}`,
+  },
+};
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang} dir={dir}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{tr.meta.title}</title>
+    <meta name="description" content={tr.meta.description} />
+    <meta
+      name="keywords"
+      content="Primavera P6, project controls, planning engineer, schedule health check, DCMA 14-point, earned value, delay analysis, Power BI, بريمافيرا, تخطيط المشاريع, ضبط المشاريع"
+    />
+    <meta name="author" content={siteData.fullName.en} />
+    <meta name="theme-color" content="#0B1220" />
 
-    <link rel="canonical" href={canonicalURL} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en" href={enHref} />
+    <link rel="alternate" hreflang="ar" href={arHref} />
+    <link rel="alternate" hreflang="x-default" href={enHref} />
 
-    <title>{title}</title>
-
-    <!-- Open Graph -->
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content={siteData.compactName[lang]} />
+    <meta property="og:locale" content={lang === 'ar' ? 'ar_IQ' : 'en_US'} />
+    <meta property="og:title" content={tr.meta.title} />
+    <meta property="og:description" content={tr.meta.description} />
+    <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:title" content={tr.meta.title} />
+    <meta name="twitter:description" content={tr.meta.description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap.xml" />
 
-    <!-- Google Fonts - Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body>
-    <a href="#main-content" class="skip-link">Skip to content</a>
-    <main id="main-content">
-      <slot />
-    </main>
+    <a href="#main-content" class="skip-link">{tr.nav.skip}</a>
+    <slot />
   </body>
 </html>
 
 <style>
   .skip-link {
     position: absolute;
-    top: -40px;
-    left: 0;
-    background: #1A1A2E;
+    top: -60px;
+    inset-inline-start: 0;
+    background: #141a2e;
     color: white;
-    padding: 8px 16px;
-    z-index: 100;
+    padding: 10px 18px;
+    z-index: 200;
     font-size: 0.875rem;
     text-decoration: none;
-    border-radius: 0 0 4px 0;
+    border-radius: 0 0 6px 0;
   }
-
   .skip-link:focus {
     top: 0;
   }
 </style>
 
 <script>
-  // IntersectionObserver for scroll-reveal animations
-  function initScrollReveal() {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
-
-    const elements = document.querySelectorAll('.scroll-reveal');
-    if (elements.length === 0) return;
-
-    const observer = new IntersectionObserver(
+  function initReveal() {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const els = document.querySelectorAll<HTMLElement>('.scroll-reveal, .line-reveal');
+    if (reduce) {
+      els.forEach((el) => el.classList.add('revealed'));
+      return;
+    }
+    if (!els.length) return;
+    const io = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
-            observer.unobserve(entry.target);
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('revealed');
+            io.unobserve(e.target);
           }
         });
       },
-      {
-        threshold: 0.1,
-        rootMargin: '0px 0px -40px 0px',
-      }
+      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
     );
-
-    elements.forEach((el) => observer.observe(el));
+    els.forEach((el) => io.observe(el));
   }
 
-  // Line reveal for How I Work connectors
-  function initLineReveal() {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
+  function initActiveNav() {
+    const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-nav-link]'));
+    if (!links.length) return;
+    const sections = links
+      .map((l) => document.querySelector<HTMLElement>(l.getAttribute('href') || ''))
+      .filter(Boolean) as HTMLElement[];
+    if (!sections.length) return;
 
-    const lines = document.querySelectorAll('.line-reveal');
-    if (lines.length === 0) return;
-
-    const observer = new IntersectionObserver(
+    const io = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
-            observer.unobserve(entry.target);
-          }
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          const id = '#' + e.target.id;
+          links.forEach((l) => l.classList.toggle('is-active', l.getAttribute('href') === id));
         });
       },
-      { threshold: 0.5 }
+      { rootMargin: '-45% 0px -50% 0px' }
     );
-
-    lines.forEach((el) => observer.observe(el));
+    sections.forEach((s) => io.observe(s));
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    initScrollReveal();
-    initLineReveal();
+    initReveal();
+    initActiveNav();
   });
 </script>

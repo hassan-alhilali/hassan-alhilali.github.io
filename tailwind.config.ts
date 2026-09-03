@@ -5,13 +5,22 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        charcoal: '#1A1A2E',
+        ink: '#070B14',
+        navy: '#0B1220',
+        panel: '#111C33',
+        charcoal: '#141A2E',
         'slate-gray': '#4A5568',
         'off-white': '#F7F8FA',
+        line: '#E4E8EF',
         'deep-blue': '#2563EB',
-        'steel-blue': '#64748B',
+        'bright-blue': '#3B82F6',
+        sky: '#93C5FD',
+        critical: '#DC2626',
+        'critical-soft': '#FCA5A5',
+        amber: '#F59E0B',
         'success-green': '#16A34A',
         'warm-gray': '#9CA3AF',
+        'steel-blue': '#64748B',
       },
       spacing: {
         '18': '4.5rem',
@@ -24,6 +33,7 @@ const config: Config = {
       fontFamily: {
         sans: [
           'Inter',
+          'IBM Plex Sans Arabic',
           '-apple-system',
           'BlinkMacSystemFont',
           'Segoe UI',
@@ -32,19 +42,27 @@ const config: Config = {
           'Arial',
           'sans-serif',
         ],
+        mono: ['IBM Plex Mono', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
       },
       maxWidth: {
-        content: '1100px',
+        content: '1180px',
         prose: '680px',
       },
       fontSize: {
-        'hero': ['4rem', { lineHeight: '1.05', letterSpacing: '-0.025em' }],
-        'hero-sm': ['3rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
-        'section': ['2.25rem', { lineHeight: '1.15', letterSpacing: '-0.02em' }],
-        'section-sm': ['1.875rem', { lineHeight: '1.2', letterSpacing: '-0.015em' }],
+        hero: ['4rem', { lineHeight: '1.05', letterSpacing: '-0.03em' }],
+        'hero-sm': ['2.6rem', { lineHeight: '1.12', letterSpacing: '-0.025em' }],
+        section: ['2.5rem', { lineHeight: '1.12', letterSpacing: '-0.025em' }],
+        'section-sm': ['1.9rem', { lineHeight: '1.2', letterSpacing: '-0.02em' }],
+      },
+      borderRadius: {
+        '4xl': '2rem',
+      },
+      backgroundImage: {
+        'grid-fade':
+          'linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px)',
       },
       transitionTimingFunction: {
-        'premium': 'cubic-bezier(0.25, 0.1, 0.25, 1)',
+        premium: 'cubic-bezier(0.25, 0.1, 0.25, 1)',
       },
       transitionDuration: {
         '400': '400ms',

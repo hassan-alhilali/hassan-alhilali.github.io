@@ -1,0 +1,17 @@
+---
+interface Props {
+  class?: string;
+  tone?: 'dark' | 'light';
+}
+const { class: cls = 'w-8 h-8', tone = 'dark' } = Astro.props;
+const base = tone === 'light' ? '#FFFFFF' : '#141A2E';
+const accent = '#2563EB';
+const soft = tone === 'light' ? 'rgba(255,255,255,0.42)' : 'rgba(20,26,46,0.32)';
+---
+
+<svg class={cls} viewBox="0 0 32 32" fill="none" aria-hidden="true">
+  <rect x="0.75" y="0.75" width="30.5" height="30.5" rx="8" stroke={soft} stroke-width="1.5" />
+  <rect x="7" y="8.5" width="12" height="3.4" rx="1.7" fill={base} />
+  <rect x="10.5" y="14.3" width="14.5" height="3.4" rx="1.7" fill={accent} />
+  <rect x="7" y="20.1" width="9.5" height="3.4" rx="1.7" fill={base} opacity="0.6" />
+</svg>

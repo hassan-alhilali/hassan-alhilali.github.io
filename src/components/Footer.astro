@@ -1,61 +1,69 @@
 ---
-const navLinks = [
-  { label: 'Services', href: '#services' },
-  { label: 'Expertise', href: '#expertise' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'About', href: '#about' },
-  { label: 'Contact', href: '#contact' },
-];
+import { t, localePath, type Lang } from '../i18n/content';
+import siteData from '../data/site.json';
+import LogoMark from './visuals/LogoMark.astro';
 
-const ctaLabel = 'Discuss a Project';
-const ctaEmail = 'hassan268@gmail.com';
-const siteName = 'Hassan Al-Hilali';
-const currentYear = new Date().getFullYear();
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const tr = t(lang);
+const other: Lang = lang === 'en' ? 'ar' : 'en';
+const year = new Date().getFullYear();
+
+const links = [
+  { label: tr.nav.services, href: '#services' },
+  { label: tr.nav.approach, href: '#approach' },
+  { label: tr.nav.deliverables, href: '#deliverables' },
+  { label: tr.nav.expertise, href: '#expertise' },
+  { label: tr.nav.about, href: '#about' },
+  { label: tr.nav.contact, href: '#contact' },
+];
 ---
 
-<footer class="bg-charcoal text-white" role="contentinfo">
-  <div class="max-w-content mx-auto px-6 lg:px-8 py-12 lg:py-16">
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
-      <div>
-        <a href="/" class="text-base font-semibold tracking-tight hover:text-gray-300 transition-colors">
-          {siteName}
-        </a>
-        <p class="mt-2 text-sm text-gray-400">
-          &copy; {currentYear} {siteName}. All rights reserved.
-        </p>
+<footer class="bg-ink text-white/60 border-t border-white/[0.07]">
+  <div class="max-w-content mx-auto px-5 sm:px-6 lg:px-8 py-12 lg:py-14">
+    <div class="flex flex-col lg:flex-row lg:items-start gap-10 lg:gap-16">
+      <div class="lg:max-w-xs">
+        <div class="flex items-center gap-2.5">
+          <LogoMark tone="light" class="w-8 h-8" />
+          <span class="text-[15px] font-bold text-white tracking-tight">{siteData.compactName[lang]}</span>
+        </div>
+        <p class="mt-4 text-[13.5px] leading-relaxed text-white/45">{tr.footer.tagline}</p>
       </div>
 
-      <nav aria-label="Footer navigation">
-        <ul class="flex flex-wrap gap-x-6 gap-y-2">
-          {navLinks.map((link) => (
-            <li>
-              <a
-                href={link.href}
-                class="text-sm text-gray-400 hover:text-white transition-colors duration-200"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
+      <nav class="lg:ms-auto" aria-label={tr.nav.home}>
+        <ul class="grid grid-cols-2 sm:grid-cols-3 gap-x-10 gap-y-2.5">
+          {
+            links.map((l) => (
+              <li>
+                <a href={l.href} class="text-[13.5px] text-white/55 hover:text-white">
+                  {l.label}
+                </a>
+              </li>
+            ))
+          }
         </ul>
       </nav>
 
-      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+      <div class="flex flex-col gap-3">
+        <a href={`mailto:${siteData.email}`} class="text-[13.5px] text-sky hover:text-white break-all">{siteData.email}</a>
         <a
-          href={`mailto:${ctaEmail}`}
-          class="inline-flex items-center px-5 py-2 text-sm font-medium text-white border border-white/20 rounded-full hover:bg-white hover:text-charcoal transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-charcoal"
-          aria-label={`${ctaLabel} via email`}
+          href={localePath(other)}
+          hreflang={other}
+          class="inline-flex items-center gap-1.5 w-fit px-3 h-8 rounded-full border border-white/20 text-[12.5px] font-semibold text-white/80 hover:bg-white/10"
         >
-          {ctaLabel}
-        </a>
-        <a
-          href="#"
-          class="text-sm text-gray-400 hover:text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-charcoal"
-          aria-label="Back to top"
-        >
-          Back to top &uarr;
+          {tr.meta.switchLabel}
         </a>
       </div>
+    </div>
+
+    <div class="mt-10 pt-6 border-t border-white/[0.07] flex flex-col sm:flex-row items-start sm:items-center gap-3">
+      <p class="text-[12.5px] text-white/35">© {year} {siteData.fullName[lang]}. {tr.footer.rights}</p>
+      <a href="#hero" class="sm:ms-auto text-[12.5px] text-white/45 hover:text-white inline-flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10 16V4m0 0L5.5 8.5M10 4l4.5 4.5" />
+        </svg>
+        {tr.footer.backToTop}
+      </a>
     </div>
   </div>
 </footer>

@@ -1,7 +1,9 @@
 {
   "name": "hassan-website",
   "type": "module",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Primavera P6 & project controls consulting website (bilingual EN/AR)",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
