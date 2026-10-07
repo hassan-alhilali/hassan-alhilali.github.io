@@ -39,6 +39,7 @@ const wa = siteData.whatsapp.replace(/\D/g, '');
             </svg>
             {siteData.email}
           </a>
+          <a href={`tel:${siteData.phone}`} class="btn-ghost-dark" dir="ltr">{siteData.phone}</a>
           {
             wa && (
               <a href={`https://wa.me/${wa}`} target="_blank" rel="noopener noreferrer" class="btn-ghost-dark">
@@ -62,6 +63,12 @@ const wa = siteData.whatsapp.replace(/\D/g, '');
             <dt class="text-[11px] font-semibold uppercase tracking-[0.15em] text-white/40">{tr.contact.emailLabel}</dt>
             <dd class="mt-1.5">
               <a href={mailto} class="text-[15px] font-medium text-sky hover:text-white break-all">{siteData.email}</a>
+            </dd>
+          </div>
+          <div class="px-6 py-5">
+            <dt class="text-[11px] font-semibold uppercase tracking-[0.15em] text-white/40">{tr.contact.phoneLabel}</dt>
+            <dd class="mt-1.5">
+              <a href={`tel:${siteData.phone}`} class="text-[15px] font-medium text-sky hover:text-white" dir="ltr">{siteData.phone}</a>
             </dd>
           </div>
           <div class="px-6 py-5">
