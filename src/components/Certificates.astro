@@ -74,11 +74,6 @@ const tr = t(lang);
                 {c.verifyId && (
                   <p class="mt-3 text-[12.5px] text-slate-gray">
                     {tr.certificates.verifyId}: <span class="font-mono text-charcoal" dir="ltr">{c.verifyId}</span>
-                    {c.verifyUrl && (
-                      <a href={c.verifyUrl} target="_blank" rel="noopener noreferrer" class="block mt-1 font-semibold text-deep-blue hover:underline">
-                        {tr.certificates.verifyAtIssuer} ↗
-                      </a>
-                    )}
                   </p>
                 )}
                 <div class="mt-auto pt-4">
