@@ -9,7 +9,7 @@ export function getStaticPaths() {
 }
 
 const { cert: c } = Astro.props;
-const pageUrl = absolute(c.page, Astro.site);
+const pageUrl = absolute(`/verify/?id=${c.publicId}`, Astro.site);
 const fileUrl = c.src ? absolute(c.src, Astro.site) : '';
 const qr = await qrSvg(pageUrl);
 const qrDownload = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(qr)}`;
@@ -17,7 +17,7 @@ const qrDownload = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(qr)}`;
 
 <CertLayout
   title={`${c.title.ar} | ${siteData.compactName.ar}`}
-  description={`${c.title.ar} — ${siteData.fullName.ar}`}
+  description={`${c.title.en} — ${c.holder.en}`}
   image={c.kind === 'image' ? fileUrl : undefined}
 >
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -54,8 +54,8 @@ const qrDownload = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(qr)}`;
           </svg>
           حامل الشهادة
         </p>
-        <p class="mt-3 text-[18px] font-bold text-charcoal">{siteData.fullName.ar}</p>
-        <p class="text-[13.5px] text-steel-blue" dir="ltr">{siteData.fullName.en}</p>
+        <p class="mt-3 text-[18px] font-bold text-charcoal">{c.holder.ar}</p>
+        <p class="text-[13.5px] text-steel-blue" dir="ltr">{c.holder.en}</p>
 
         <dl class="mt-5 pt-5 border-t border-line grid gap-4 text-[14px]">
           <div>
@@ -80,6 +80,10 @@ const qrDownload = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(qr)}`;
               <dd class="mt-0.5 font-semibold text-charcoal">{c.hours}</dd>
             </div>
           )}
+          {c.courseDate && <div><dt class="text-[12px] text-steel-blue">Course Date</dt><dd class="mt-0.5 font-semibold text-charcoal" dir="ltr">{c.courseDate}</dd></div>}
+          {c.topics && <div><dt class="text-[12px] text-steel-blue">Course Coverage</dt><dd class="mt-0.5 text-charcoal" dir="ltr">{c.topics}</dd></div>}
+          {c.director && <div><dt class="text-[12px] text-steel-blue">Authorized Signature</dt><dd class="mt-0.5 font-semibold text-charcoal" dir="ltr">{c.director}</dd></div>}
+          {c.issued && <div><dt class="text-[12px] text-steel-blue">Date Issued</dt><dd class="mt-0.5 font-semibold text-charcoal" dir="ltr">{c.issued}</dd></div>}
         </dl>
       </div>
 

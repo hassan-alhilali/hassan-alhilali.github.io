@@ -1,0 +1,36 @@
+---
+// Public verification URL requested for this certificate. The query ID is
+// stable on GitHub Pages, where this page is generated as a static document.
+import CertLayout from '../../layouts/CertLayout.astro';
+import siteData from '../../data/site.json';
+import { certs } from '../../lib/certs';
+
+const cert = certs[0];
+---
+
+<CertLayout title={`Certificate Verification | ${cert.holder.en}`} description={`${cert.title.en} — ${cert.holder.en}`} image={new URL(cert.src, Astro.site).href}>
+  <h1 class="text-section-sm font-bold tracking-tight">Certificate Verification</h1>
+  <p class="mt-2 text-[15px] text-slate-gray">Certificate details transcribed from the original certificate.</p>
+  <div class="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    <div class="lg:col-span-8 card overflow-hidden">
+      <a href={cert.src} target="_blank" rel="noopener"><img src={cert.src} alt="Original Invensis Learning certificate" class="block w-full h-auto bg-white" /></a>
+      <a href={cert.src} download class="no-print m-4 inline-flex btn-outline">Download certificate</a>
+    </div>
+    <aside class="lg:col-span-4 card p-6">
+      <p class="text-[12px] text-steel-blue">Certificate holder</p>
+      <p class="mt-1 text-[18px] font-bold text-charcoal" dir="ltr">{cert.holder.en}</p>
+      <dl class="mt-5 grid gap-4 text-[14px]">
+        <div><dt class="text-[12px] text-steel-blue">Certificate</dt><dd class="mt-1 font-semibold text-charcoal" dir="ltr">{cert.title.en}</dd></div>
+        <div><dt class="text-[12px] text-steel-blue">Issuer</dt><dd class="mt-1 font-semibold text-charcoal" dir="ltr">{cert.issuer.en}</dd></div>
+        <div><dt class="text-[12px] text-steel-blue">Training</dt><dd class="mt-1 font-semibold text-charcoal" dir="ltr">{cert.hours}</dd></div>
+        <div><dt class="text-[12px] text-steel-blue">Course Date</dt><dd class="mt-1 font-semibold text-charcoal" dir="ltr">{cert.courseDate}</dd></div>
+        <div><dt class="text-[12px] text-steel-blue">Course Coverage</dt><dd class="mt-1 text-charcoal" dir="ltr">{cert.topics}</dd></div>
+        <div><dt class="text-[12px] text-steel-blue">Authorized Signature</dt><dd class="mt-1 font-semibold text-charcoal" dir="ltr">{cert.director}</dd></div>
+        <div><dt class="text-[12px] text-steel-blue">Date Issued</dt><dd class="mt-1 font-semibold text-charcoal" dir="ltr">{cert.issued}</dd></div>
+        <div><dt class="text-[12px] text-steel-blue">Verification ID on certificate</dt><dd class="mt-1 font-mono font-semibold text-charcoal" dir="ltr">{cert.verifyId}</dd></div>
+      </dl>
+      <p class="mt-5 text-[12px] leading-relaxed text-steel-blue">For issuer verification, use the ID above on Invensis Learning's website.</p>
+      <a href={cert.verifyUrl} target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex btn-outline">Verify with Invensis Learning ↗</a>
+    </aside>
+  </div>
+</CertLayout>

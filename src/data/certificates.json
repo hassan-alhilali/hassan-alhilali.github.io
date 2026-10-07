@@ -2,14 +2,20 @@
   {
     "id": "p6-eppm-2023",
     "title": {
-      "en": "Oracle Primavera P6 EPPM — Enterprise Project Portfolio Management",
-      "ar": "أوراكل بريمافيرا P6 EPPM — إدارة محافظ المشاريع المؤسسية"
+      "en": "ORACLE PRIMAVERA P6 ENTERPRISE PROJECT PORTFOLIO MANAGEMENT (P6 EPPM)",
+      "ar": "ORACLE PRIMAVERA P6 ENTERPRISE PROJECT PORTFOLIO MANAGEMENT (P6 EPPM)"
     },
-    "issuer": { "en": "Invensis Learning", "ar": "Invensis Learning" },
+    "holder": { "en": "HASSAN MOHAMMED LETHEETH", "ar": "HASSAN MOHAMMED LETHEETH" },
+    "issuer": { "en": "INVENSIS LEARNING", "ar": "INVENSIS LEARNING" },
     "year": "2023",
-    "hours": "40",
-    "file": "p6-eppm-2023.jpg",
+    "hours": "40 Hours / 40 PDUs",
+    "courseDate": "October 14 - 18, 2023",
+    "topics": "Advanced Planning, Scheduling, Resource Management, Critical Path Analysis, and Project Controls.",
+    "director": "RAJESH KUMAR, Training Director",
+    "issued": "October 20, 2023",
+    "file": "p6-eppm-2023.png",
     "verifyId": "IL-246810-P6",
-    "verifyUrl": "https://www.invensislearning.com/verify"
+    "verifyUrl": "https://www.invensislearning.com/verify",
+    "publicId": "DEMO-2026-7F3K9X"
   }
 ]
