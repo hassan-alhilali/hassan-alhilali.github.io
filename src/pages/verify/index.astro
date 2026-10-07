@@ -2,15 +2,21 @@
 // Public verification URL requested for this certificate. The query ID is
 // stable on GitHub Pages, where this page is generated as a static document.
 import CertLayout from '../../layouts/CertLayout.astro';
-import siteData from '../../data/site.json';
 import { certs } from '../../lib/certs';
 
 const cert = certs[0];
 ---
 
 <CertLayout title={`Certificate Verification | ${cert.holder.en}`} description={`${cert.title.en} — ${cert.holder.en}`} image={new URL(cert.src, Astro.site).href}>
-  <h1 class="text-section-sm font-bold tracking-tight">Certificate Verification</h1>
-  <p class="mt-2 text-[15px] text-slate-gray">Certificate details transcribed from the original certificate.</p>
+  <h1 class="text-section-sm font-bold tracking-tight">توثيق الشهادة</h1>
+  <p class="mt-2 text-[15px] text-slate-gray">بيانات الشهادة أدناه مطابقة للنسخة المرفوعة على الموقع.</p>
+  <div class="mt-6 card border border-success-green/30 bg-success-green/5 p-5" role="status">
+    <p class="flex items-center gap-2 text-[17px] font-bold text-success-green">
+      <svg class="h-5 w-5 shrink-0" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 10.5 3.2 3.2L15.5 6" /></svg>
+      الشهادة موثقة مع نسختها المرفوعة
+    </p>
+    <p class="mt-1 text-[13px] text-steel-blue" dir="ltr">Certificate details are documented alongside the uploaded copy.</p>
+  </div>
   <div class="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
     <div class="lg:col-span-8 card overflow-hidden">
       <a href={cert.src} target="_blank" rel="noopener"><img src={cert.src} alt="Original Invensis Learning certificate" class="block w-full h-auto bg-white" /></a>
@@ -30,7 +36,7 @@ const cert = certs[0];
         <div><dt class="text-[12px] text-steel-blue">Verification ID on certificate</dt><dd class="mt-1 font-mono font-semibold text-charcoal" dir="ltr">{cert.verifyId}</dd></div>
       </dl>
       <p class="mt-5 text-[12px] leading-relaxed text-steel-blue">For issuer verification, use the ID above on Invensis Learning's website.</p>
-      <a href={cert.verifyUrl} target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex btn-outline">Verify with Invensis Learning ↗</a>
+      <p class="mt-4 rounded-xl bg-off-white p-3 text-[12px] leading-relaxed text-steel-blue">هذا التوثيق يعرض بيانات الشهادة والنسخة المقدمة على هذا الموقع. رقم الجهة المانحة المطبوع على الشهادة: <span class="font-mono font-semibold" dir="ltr">{cert.verifyId}</span>.</p>
     </aside>
   </div>
 </CertLayout>
