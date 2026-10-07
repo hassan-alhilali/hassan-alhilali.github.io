@@ -52,7 +52,7 @@ const qrDownload = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(qr)}`;
           <svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5l3.2 3.2L15.5 6" />
           </svg>
-          صادرة باسم
+          حامل الشهادة
         </p>
         <p class="mt-3 text-[18px] font-bold text-charcoal">{siteData.fullName.ar}</p>
         <p class="text-[13.5px] text-steel-blue" dir="ltr">{siteData.fullName.en}</p>
@@ -66,7 +66,7 @@ const qrDownload = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(qr)}`;
           <div>
             <dt class="text-[12px] text-steel-blue">الجهة المانحة · Issuer</dt>
             <dd class="mt-0.5 font-semibold text-charcoal">{c.issuer.ar || '—'}</dd>
-            {c.issuer.en && <dd class="text-[13px] text-slate-gray" dir="ltr">{c.issuer.en}</dd>}
+            {c.issuer.en && c.issuer.en !== c.issuer.ar && <dd class="text-[13px] text-slate-gray" dir="ltr">{c.issuer.en}</dd>}
           </div>
           {c.year && (
             <div>
@@ -74,16 +74,33 @@ const qrDownload = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(qr)}`;
               <dd class="mt-0.5 font-semibold text-charcoal">{c.year}</dd>
             </div>
           )}
-          <div>
-            <dt class="text-[12px] text-steel-blue">رقم المرجع · Ref.</dt>
-            <dd class="mt-0.5 font-mono text-[13px] text-charcoal">{c.id}</dd>
-          </div>
+          {c.hours && (
+            <div>
+              <dt class="text-[12px] text-steel-blue">الساعات التدريبية · Hours</dt>
+              <dd class="mt-0.5 font-semibold text-charcoal">{c.hours}</dd>
+            </div>
+          )}
         </dl>
       </div>
 
+      {c.verifyId && (
+        <div class="card p-6">
+          <p class="text-[12px] text-steel-blue">رقم التحقق لدى الجهة المانحة · Issuer verification ID</p>
+          <p class="mt-1 font-mono text-[16px] font-semibold text-charcoal" dir="ltr">{c.verifyId}</p>
+          {c.verifyUrl && (
+            <a href={c.verifyUrl} target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex btn-outline">
+              التحقق لدى {c.issuer.ar} ↗
+            </a>
+          )}
+          <p class="mt-3 text-[12px] leading-relaxed text-steel-blue">
+            التحقق الرسمي من صحة هذه الشهادة يتم عبر الجهة المانحة باستخدام الرقم أعلاه.
+          </p>
+        </div>
+      )}
+
       <div class="card p-6 text-center">
         <div class="mx-auto w-44 h-44" set:html={qr} />
-        <p class="mt-3 text-[12.5px] font-semibold text-success-green">امسح الرمز للتحقق من الشهادة</p>
+        <p class="mt-3 text-[12.5px] font-semibold text-success-green">امسح الرمز لعرض الشهادة</p>
         <a href={qrDownload} download={`qr-${c.id}.svg`} class="no-print mt-4 inline-flex btn-outline">تنزيل رمز QR</a>
       </div>
     </aside>

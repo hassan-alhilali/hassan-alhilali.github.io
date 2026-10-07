@@ -207,6 +207,9 @@ export const content = {
       lead: 'Certified by specialised institutes in Primavera P6, planning and project management, having met the requirements of each programme.',
       view: 'View certificate',
       pending: 'Copy available on request',
+      verifyAtIssuer: 'Verify with issuer',
+      verifyId: 'Verification ID',
+      hours: 'hours',
       close: 'Close',
     },
     order: {
@@ -464,6 +467,9 @@ export const content = {
       lead: 'حاصل على شهادات من معاهد متخصصة في بريمافيرا P6 والتخطيط وإدارة المشاريع، مستوفيًا شروط كل برنامج.',
       view: 'عرض الشهادة',
       pending: 'نسخة متاحة عند الطلب',
+      verifyAtIssuer: 'التحقق لدى الجهة المانحة',
+      verifyId: 'رقم التحقق',
+      hours: 'ساعة',
       close: 'إغلاق',
     },
     order: {

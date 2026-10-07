@@ -69,7 +69,18 @@ const tr = t(lang);
                 <p class="mt-1.5 text-[13px] text-steel-blue">
                   {c.issuer[lang]}
                   {c.year && <span> · {c.year}</span>}
+                  {c.hours && <span> · {c.hours} {tr.certificates.hours}</span>}
                 </p>
+                {c.verifyId && (
+                  <p class="mt-3 text-[12.5px] text-slate-gray">
+                    {tr.certificates.verifyId}: <span class="font-mono text-charcoal" dir="ltr">{c.verifyId}</span>
+                    {c.verifyUrl && (
+                      <a href={c.verifyUrl} target="_blank" rel="noopener noreferrer" class="block mt-1 font-semibold text-deep-blue hover:underline">
+                        {tr.certificates.verifyAtIssuer} ↗
+                      </a>
+                    )}
+                  </p>
+                )}
                 <div class="mt-auto pt-4">
                   {c.kind === 'image' && (
                     <button
