@@ -16,6 +16,10 @@ const cert = certs[0];
       الشهادة موثقة مع نسختها المرفوعة
     </p>
     <p class="mt-1 text-[13px] text-steel-blue" dir="ltr">Certificate details are documented alongside the uploaded copy.</p>
+    <div class="mt-4 rounded-xl border border-success-green/25 bg-white px-4 py-3">
+      <p class="text-[12px] text-steel-blue">رمز التحقق لهذه الصفحة</p>
+      <p class="mt-1 font-mono text-[18px] font-bold tracking-wide text-charcoal" dir="ltr">{cert.publicId}</p>
+    </div>
   </div>
   <div class="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
     <div class="lg:col-span-8 card overflow-hidden">
@@ -36,7 +40,7 @@ const cert = certs[0];
         <div><dt class="text-[12px] text-steel-blue">Verification ID on certificate</dt><dd class="mt-1 font-mono font-semibold text-charcoal" dir="ltr">{cert.verifyId}</dd></div>
       </dl>
       <p class="mt-5 text-[12px] leading-relaxed text-steel-blue">For issuer verification, use the ID above on Invensis Learning's website.</p>
-      <p class="mt-4 rounded-xl bg-off-white p-3 text-[12px] leading-relaxed text-steel-blue">هذا التوثيق يعرض بيانات الشهادة والنسخة المقدمة على هذا الموقع. رقم الجهة المانحة المطبوع على الشهادة: <span class="font-mono font-semibold" dir="ltr">{cert.verifyId}</span>.</p>
+      <p class="mt-4 rounded-xl bg-off-white p-3 text-[12px] leading-relaxed text-steel-blue">هذا التوثيق يطابق بيانات الشهادة مع النسخة المرفوعة على الموقع. رقم الشهادة المطبوع: <span class="font-mono font-semibold" dir="ltr">{cert.verifyId}</span>.</p>
     </aside>
   </div>
 </CertLayout>
