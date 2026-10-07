@@ -11,6 +11,9 @@ import WhyWorkWithMe from '../components/WhyWorkWithMe.astro';
 import Expertise from '../components/Expertise.astro';
 import About from '../components/About.astro';
 import FAQ from '../components/FAQ.astro';
+import Experience from '../components/Experience.astro';
+import Certificates from '../components/Certificates.astro';
+import Order from '../components/Order.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
 
@@ -22,13 +25,16 @@ const lang = 'en' as const;
   <main id="main-content">
     <Hero lang={lang} />
     <Metrics lang={lang} />
+    <Experience lang={lang} />
     <Services lang={lang} />
     <ScheduleQuality lang={lang} />
     <Approach lang={lang} />
     <Deliverables lang={lang} />
     <WhyWorkWithMe lang={lang} />
-    <Expertise lang={lang} />
+    <Certificates lang={lang} />
     <About lang={lang} />
+    <Expertise lang={lang} />
+    <Order lang={lang} />
     <FAQ lang={lang} />
     <Contact lang={lang} />
   </main>

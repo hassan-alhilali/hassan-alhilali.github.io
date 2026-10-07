@@ -1,0 +1,143 @@
+---
+import { t, type Lang } from '../i18n/content';
+import { certs } from '../lib/certs';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const tr = t(lang);
+
+// Files live in /public/certificates; each certificate also has its own page at /cert/<id>/
+// (the target of its QR code). Images open in a lightbox here, PDFs open in a new tab.
+---
+
+<section id="certificates" class="bg-off-white section-pad" aria-labelledby="certificates-heading">
+  <div class="max-w-content mx-auto px-5 sm:px-6 lg:px-8">
+    <div class="max-w-2xl mb-12 lg:mb-16">
+      <p class="eyebrow scroll-reveal">{tr.certificates.eyebrow}</p>
+      <h2 id="certificates-heading" class="mt-4 text-section-sm sm:text-section font-bold tracking-tight scroll-reveal stagger-2">
+        {tr.certificates.title}
+      </h2>
+      <p class="mt-4 text-[17px] leading-relaxed text-slate-gray scroll-reveal stagger-3">{tr.certificates.lead}</p>
+    </div>
+
+    <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      {
+        certs.map((c, i) => (
+          <li class={`scroll-reveal stagger-${Math.min(i + 1, 6)}`}>
+            <article class="card card-hover h-full flex flex-col overflow-hidden">
+              <div class="relative aspect-[4/3] bg-white border-b border-line overflow-hidden">
+                {c.kind === 'image' && (
+                  <button
+                    type="button"
+                    class="cert-open group block w-full h-full"
+                    data-src={c.src}
+                    data-title={c.title[lang]}
+                    aria-label={`${tr.certificates.view}: ${c.title[lang]}`}
+                  >
+                    <img
+                      src={c.src}
+                      alt={c.title[lang]}
+                      loading="lazy"
+                      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                    />
+                  </button>
+                )}
+                {c.kind !== 'image' && (
+                  <svg viewBox="0 0 240 180" class="w-full h-full" aria-hidden="true">
+                    <rect x="14" y="14" width="212" height="152" rx="6" fill="#F7F8FA" stroke="#E4E8EF" stroke-width="2" />
+                    <rect x="22" y="22" width="196" height="136" rx="3" fill="none" stroke="#2563EB" stroke-opacity="0.25" stroke-dasharray="3 3" />
+                    <rect x="62" y="40" width="116" height="8" rx="4" fill="#141A2E" fill-opacity="0.75" />
+                    <rect x="82" y="56" width="76" height="5" rx="2.5" fill="#64748B" fill-opacity="0.4" />
+                    <rect x="48" y="78" width="144" height="5" rx="2.5" fill="#64748B" fill-opacity="0.22" />
+                    <rect x="60" y="90" width="120" height="5" rx="2.5" fill="#64748B" fill-opacity="0.22" />
+                    <rect x="44" y="134" width="50" height="2" rx="1" fill="#141A2E" fill-opacity="0.3" />
+                    <g transform="translate(170 128)">
+                      <path d="M-9 8l-5 18 8-4 5 7 3-17M9 8l5 18-8-4-5 7-3-17" fill="#DC2626" fill-opacity="0.85" />
+                      <circle r="15" fill="#F59E0B" />
+                      <circle r="10.5" fill="none" stroke="#fff" stroke-width="1.5" stroke-dasharray="2 2" />
+                      <path d="M-4.5 0.5l3 3 6-6.5" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                    </g>
+                  </svg>
+                )}
+                {c.kind === 'pdf' && (
+                  <span class="absolute top-3 end-3 px-2 py-0.5 rounded bg-critical text-white text-[10.5px] font-bold">PDF</span>
+                )}
+              </div>
+
+              <div class="p-5 flex flex-col flex-1">
+                <h3 class="text-[15.5px] font-bold text-charcoal leading-snug">{c.title[lang]}</h3>
+                <p class="mt-1.5 text-[13px] text-steel-blue">
+                  {c.issuer[lang]}
+                  {c.year && <span> · {c.year}</span>}
+                </p>
+                <div class="mt-auto pt-4">
+                  {c.kind === 'image' && (
+                    <button
+                      type="button"
+                      class="cert-open text-[13px] font-semibold text-deep-blue hover:underline"
+                      data-src={c.src}
+                      data-title={c.title[lang]}
+                    >
+                      {tr.certificates.view}
+                    </button>
+                  )}
+                  {c.kind === 'pdf' && (
+                    <a href={c.src} target="_blank" rel="noopener" class="text-[13px] font-semibold text-deep-blue hover:underline">
+                      {tr.certificates.view}
+                    </a>
+                  )}
+                  {c.kind === 'none' && <span class="text-[12.5px] text-warm-gray">{tr.certificates.pending}</span>}
+                  <a href={c.page} class="ms-3 text-[12.5px] text-steel-blue hover:text-deep-blue" aria-label={`QR · ${c.title[lang]}`}>QR ↗</a>
+                </div>
+              </div>
+            </article>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <dialog id="cert-dialog" class="cert-dialog p-0 rounded-2xl bg-transparent max-w-[min(960px,92vw)] w-full">
+    <div class="relative bg-white rounded-2xl overflow-hidden">
+      <div class="flex items-center gap-3 px-5 py-3 border-b border-line">
+        <p id="cert-dialog-title" class="text-[14px] font-semibold text-charcoal truncate"></p>
+        <form method="dialog" class="ms-auto">
+          <button class="inline-flex items-center justify-center w-9 h-9 rounded-lg hover:bg-off-white" aria-label={tr.certificates.close}>
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </form>
+      </div>
+      <img id="cert-dialog-img" src="" alt="" class="block w-full max-h-[80vh] object-contain bg-off-white" />
+    </div>
+  </dialog>
+</section>
+
+<style>
+  .cert-dialog::backdrop {
+    background: rgba(7, 11, 20, 0.78);
+    backdrop-filter: blur(4px);
+  }
+</style>
+
+<script>
+  const dialog = document.getElementById('cert-dialog') as HTMLDialogElement | null;
+  const img = document.getElementById('cert-dialog-img') as HTMLImageElement | null;
+  const title = document.getElementById('cert-dialog-title');
+
+  document.querySelectorAll<HTMLButtonElement>('.cert-open').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if (!dialog || !img || !title) return;
+      img.src = btn.dataset.src || '';
+      img.alt = btn.dataset.title || '';
+      title.textContent = btn.dataset.title || '';
+      dialog.showModal();
+    });
+  });
+
+  // click on the backdrop closes
+  dialog?.addEventListener('click', (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+</script>

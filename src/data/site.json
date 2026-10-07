@@ -8,16 +8,30 @@
     "ar": "حسن الهلالي"
   },
   "title": {
-    "en": "Primavera P6 & Project Controls Consultant",
-    "ar": "استشاري بريمافيرا P6 وضبط المشاريع"
+    "en": "Primavera P6 Planning & Project Controls Consultant",
+    "ar": "استشاري تخطيط بريمافيرا P6 وضبط المشاريع"
   },
-  "email": "hassan268@gmail.com",
+  "employer": {
+    "org": {
+      "en": "Dhi Qar Oil Company (DQOC)",
+      "ar": "شركة نفط ذي قار"
+    },
+    "parent": {
+      "en": "Ministry of Oil · Iraq",
+      "ar": "وزارة النفط · العراق"
+    },
+    "role": {
+      "en": "Project Monitoring & Follow-up Engineer",
+      "ar": "مهندس متابعة المشاريع"
+    }
+  },
+  "email": "eng.hassan268@gmail.com",
   "phone": "",
-  "linkedin": "",
   "whatsapp": "",
+  "linkedin": "",
   "location": {
-    "en": "Available worldwide · Remote & on-site",
-    "ar": "متاح عالميًا · عن بُعد وفي الموقع"
+    "en": "Dhi Qar, Iraq · Remote & on-site worldwide",
+    "ar": "ذي قار، العراق · عن بُعد وفي الموقع"
   },
   "availability": {
     "en": "Open to consulting engagements",

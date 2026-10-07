@@ -1,0 +1,26 @@
+[
+  {
+    "cert_id": "DEMO-2026-7F3K9X",
+    "holder_name": "متدرب تجريبي",
+    "holder_name_en": "Demo Trainee",
+    "course": "دورة بريمافيرا P6 — التخطيط والجدولة",
+    "course_en": "Primavera P6 — Planning & Scheduling",
+    "issue_date": "2026-09-15",
+    "hours": 30,
+    "issuer": "",
+    "image_url": "./sample-certificate.svg",
+    "status": "valid"
+  },
+  {
+    "cert_id": "DEMO-2026-R3V0KD",
+    "holder_name": "شهادة ملغاة تجريبية",
+    "holder_name_en": "Revoked Demo",
+    "course": "دورة بريمافيرا P6 — المستوى المتقدم",
+    "course_en": "Primavera P6 — Advanced",
+    "issue_date": "2026-03-01",
+    "hours": 24,
+    "issuer": "",
+    "image_url": "",
+    "status": "revoked"
+  }
+]

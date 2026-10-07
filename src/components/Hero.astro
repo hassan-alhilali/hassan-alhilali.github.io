@@ -79,9 +79,17 @@ const tr = t(lang);
           }
         </ul>
 
-        <p class="hero-animate hero-animate-delay-5 mt-8 text-[13px] text-white/35">
-          {siteData.fullName[lang]} · {siteData.title[lang]}
-        </p>
+        <div class="hero-animate hero-animate-delay-5 mt-8 flex items-center gap-3">
+          <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-amber/15 text-amber shrink-0" aria-hidden="true">
+            <svg class="w-5 h-5" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+              <path d="M16 3L9 29M16 3l7 26M11.2 21h9.6M12.8 14h6.4M6 29h20" />
+            </svg>
+          </span>
+          <p class="text-[13px] leading-snug">
+            <span class="block font-semibold text-white/80">{siteData.fullName[lang]}</span>
+            <span class="block text-white/45">{tr.hero.employer}</span>
+          </p>
+        </div>
       </div>
 
       <!-- gantt -->

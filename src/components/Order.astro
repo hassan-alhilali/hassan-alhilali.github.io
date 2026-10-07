@@ -1,0 +1,168 @@
+---
+import { t, type Lang } from '../i18n/content';
+import siteData from '../data/site.json';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const tr = t(lang);
+const o = tr.order;
+
+// WhatsApp number in international format, digits only (e.g. 9647XXXXXXXXX)
+const wa = siteData.whatsapp.replace(/\D/g, '');
+const services = [o.form.consult, ...tr.services.items.map((s) => s.title), o.form.other];
+const subject = lang === 'ar' ? 'طلب خدمة بريمافيرا P6' : 'Primavera P6 service request';
+const stepColors = ['bg-deep-blue', 'bg-bright-blue', 'bg-amber', 'bg-success-green'];
+---
+
+<section id="order" class="bg-white section-pad" aria-labelledby="order-heading">
+  <div class="max-w-content mx-auto px-5 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+      <!-- steps infographic -->
+      <div class="lg:col-span-5">
+        <p class="eyebrow scroll-reveal">{o.eyebrow}</p>
+        <h2 id="order-heading" class="mt-4 text-section-sm sm:text-section font-bold tracking-tight scroll-reveal stagger-2">
+          {o.title}
+        </h2>
+        <p class="mt-4 text-[17px] leading-relaxed text-slate-gray scroll-reveal stagger-3">{o.lead}</p>
+
+        <ol class="relative mt-10 space-y-7">
+          <span class="absolute top-3 bottom-3 start-[21px] w-[2px] bg-gradient-to-b from-deep-blue via-amber to-success-green opacity-40" aria-hidden="true"></span>
+          {
+            o.steps.map((s, i) => (
+              <li class={`relative flex items-start gap-5 scroll-reveal stagger-${i + 2}`}>
+                <span
+                  class={`relative z-10 inline-flex items-center justify-center w-11 h-11 rounded-full ring-4 ring-white text-white font-mono text-[14px] font-bold shrink-0 ${stepColors[i]}`}
+                >
+                  {i + 1}
+                </span>
+                <div class="pt-1.5">
+                  <p class="text-[16px] font-bold text-charcoal">{s.k}</p>
+                  <p class="mt-1 text-[14px] leading-relaxed text-slate-gray">{s.v}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+
+      <!-- request form -->
+      <div class="lg:col-span-7 scroll-reveal stagger-2">
+        <form
+          id="order-form"
+          class="card p-6 sm:p-8 shadow-[0_30px_60px_-40px_rgba(15,23,42,0.45)]"
+          data-wa={wa}
+          data-email={siteData.email}
+          data-subject={subject}
+          data-greeting={o.form.greeting}
+          data-l-service={o.form.service}
+          data-l-name={o.form.name}
+          data-l-org={o.form.org}
+          data-l-details={o.form.details}
+        >
+          <fieldset>
+            <legend class="text-[13px] font-semibold text-charcoal">{o.form.service}</legend>
+            <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              {
+                services.map((s, i) => (
+                  <label class="order-opt relative flex items-center gap-3 px-4 py-3 rounded-xl border border-line cursor-pointer text-[13.5px] text-charcoal hover:border-deep-blue/40 transition-colors">
+                    <input type="radio" name="service" value={s} checked={i === 0} class="accent-deep-blue w-4 h-4 shrink-0" />
+                    <span class="leading-snug">{s}</span>
+                  </label>
+                ))
+              }
+            </div>
+          </fieldset>
+
+          <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <label class="block">
+              <span class="text-[13px] font-semibold text-charcoal">{o.form.name}</span>
+              <input name="name" type="text" autocomplete="name" class="order-input" />
+            </label>
+            <label class="block">
+              <span class="text-[13px] font-semibold text-charcoal">{o.form.org}</span>
+              <input name="org" type="text" autocomplete="organization" class="order-input" />
+            </label>
+          </div>
+
+          <label class="block mt-4">
+            <span class="text-[13px] font-semibold text-charcoal">{o.form.details}</span>
+            <textarea name="details" rows="4" placeholder={o.form.detailsHint} class="order-input resize-y"></textarea>
+          </label>
+
+          <div class="mt-6 flex flex-col sm:flex-row gap-3">
+            {
+              wa && (
+                <button type="submit" data-channel="wa" class="order-send inline-flex flex-1 items-center justify-center gap-2 min-h-[50px] px-6 rounded-full bg-[#25D366] hover:bg-[#1ebe5b] text-white text-[15px] font-semibold transition-colors">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.5 4c1.7.7 2.4.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z" />
+                  </svg>
+                  {o.form.sendWa}
+                </button>
+              )
+            }
+            <button type="submit" data-channel="email" class="order-send btn-primary flex-1 !px-6">
+              <svg class="w-4 h-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+                <rect x="2.5" y="4" width="15" height="12" rx="2" />
+                <path d="M3 5.5l7 5 7-5" stroke-linecap="round" />
+              </svg>
+              {o.form.sendEmail}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .order-input {
+    display: block;
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e4e8ef;
+    border-radius: 0.75rem;
+    background: #f7f8fa;
+    font-size: 14px;
+    color: #141a2e;
+    transition: border-color 0.2s, background-color 0.2s;
+  }
+  .order-input:focus {
+    outline: none;
+    border-color: #2563eb;
+    background: #fff;
+  }
+  .order-opt:has(input:checked) {
+    border-color: #2563eb;
+    background: rgba(37, 99, 235, 0.05);
+    box-shadow: inset 0 0 0 1px #2563eb;
+  }
+</style>
+
+<script>
+  const form = document.getElementById('order-form') as HTMLFormElement | null;
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const d = form.dataset;
+    const fd = new FormData(form);
+    const submitter = (e as SubmitEvent).submitter as HTMLElement | null;
+    const channel = submitter?.dataset.channel ?? 'email';
+
+    const lines = [
+      d.greeting,
+      '',
+      `${d.lService}: ${fd.get('service') ?? ''}`,
+      fd.get('name') ? `${d.lName}: ${fd.get('name')}` : '',
+      fd.get('org') ? `${d.lOrg}: ${fd.get('org')}` : '',
+      fd.get('details') ? `${d.lDetails}:\n${fd.get('details')}` : '',
+    ].filter((l, i) => i < 2 || l);
+    const text = lines.join('\n');
+
+    if (channel === 'wa' && d.wa) {
+      window.open(`https://wa.me/${d.wa}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+    } else {
+      window.location.href = `mailto:${d.email}?subject=${encodeURIComponent(d.subject ?? '')}&body=${encodeURIComponent(text)}`;
+    }
+  });
+</script>

@@ -44,6 +44,9 @@ src/
     WhyWorkWithMe.astro    ← differentiators (dark section)
     Expertise.astro        ← tools, sectors, certifications
     About.astro            ← photo + bio
+    Experience.astro       ← DQOC role + schedule-review infographic
+    Certificates.astro     ← certificate gallery + lightbox
+    Order.astro            ← 4-step order flow + WhatsApp/email request form
     FAQ.astro              ← accordion
     Contact.astro          ← email CTA + details
     Footer.astro
@@ -68,6 +71,27 @@ each field carrying an `en` and an `ar` value.
 
 Optional fields in `site.json` that are empty are simply not rendered — fill in `linkedin` with a full URL
 and a LinkedIn button appears in the contact section and footer automatically.
+
+### WhatsApp
+
+Put your number in `whatsapp` in `src/data/site.json`, in international format (e.g. `+964 7XX XXX XXXX`).
+Once set, the site shows a floating WhatsApp button, a WhatsApp button in Contact, and a
+**Send via WhatsApp** option on the order form. Left empty, the form sends by email only.
+
+### Certificates
+
+Certificates are listed in `src/data/certificates.json`, and their files live in `public/certificates/`.
+To upload one (jpg, png, webp or pdf):
+
+```bash
+# attach a scan to an existing entry
+npm run add-cert -- "D:/scans/p6.jpg" --id cert-1 --year 2023 --issuer-en "Institute name" --issuer-ar "اسم المعهد"
+
+# or add a new certificate
+npm run add-cert -- "D:/scans/pmp.pdf" --en "PMP" --ar "شهادة PMP" --issuer-en "PMI" --issuer-ar "PMI" --year 2024
+```
+
+Images open in a lightbox and PDFs open in a new tab. An entry with no file shows an illustrated certificate card.
 
 ### Adding a new language
 

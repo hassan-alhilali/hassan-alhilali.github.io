@@ -1,0 +1,32 @@
+---
+// All certificates with their QR codes — print this page to get the codes for each certificate.
+import CertLayout from '../../layouts/CertLayout.astro';
+import siteData from '../../data/site.json';
+import { certs, absolute, qrSvg } from '../../lib/certs';
+
+const rows = await Promise.all(
+  certs.map(async (c) => {
+    const url = absolute(c.page, Astro.site);
+    return { ...c, url, qr: await qrSvg(url) };
+  })
+);
+---
+
+<CertLayout title={`الشهادات | ${siteData.compactName.ar}`} description={`شهادات ${siteData.fullName.ar}`}>
+  <h1 class="text-section-sm font-bold tracking-tight">الشهادات ورموز التحقق</h1>
+  <p class="mt-2 text-[15px] text-slate-gray">امسح الرمز لعرض صورة الشهادة الأصلية المحفوظة على الموقع.</p>
+
+  <ul class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+    {
+      rows.map((c) => (
+        <li class="card p-5 text-center break-inside-avoid">
+          <a href={c.page} class="block">
+            <div class="mx-auto w-40 h-40" set:html={c.qr} />
+            <p class="mt-3 text-[14.5px] font-bold text-charcoal">{c.title.ar}</p>
+            <p class="text-[12.5px] text-steel-blue" dir="ltr">{c.title.en}</p>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</CertLayout>

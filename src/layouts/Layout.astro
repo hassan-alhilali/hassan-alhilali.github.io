@@ -11,7 +11,7 @@ const { lang } = Astro.props;
 const tr = t(lang);
 const dir = languages[lang].dir;
 
-const base = Astro.site ?? new URL('https://hassan-alhilali.github.io');
+const base = Astro.site ?? new URL('https://enghassan268-wq.github.io');
 const canonical = new URL(Astro.url.pathname, base).href;
 const enHref = new URL('/', base).href;
 const arHref = new URL('/ar/', base).href;
@@ -42,6 +42,7 @@ const jsonLd = {
     name: siteData.fullName[lang],
     jobTitle: siteData.title[lang],
     email: `mailto:${siteData.email}`,
+    worksFor: { '@type': 'Organization', name: siteData.employer.org[lang] },
   },
 };
 ---

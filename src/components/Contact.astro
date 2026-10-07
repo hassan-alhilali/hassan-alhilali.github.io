@@ -8,6 +8,7 @@ const tr = t(lang);
 
 const subject = encodeURIComponent(lang === 'ar' ? 'استفسار عن خدمات بريمافيرا P6' : 'Primavera P6 / project controls enquiry');
 const mailto = `mailto:${siteData.email}?subject=${subject}`;
+const wa = siteData.whatsapp.replace(/\D/g, '');
 ---
 
 <section id="contact" class="relative bg-navy text-white section-pad overflow-hidden" aria-labelledby="contact-heading">
@@ -38,6 +39,13 @@ const mailto = `mailto:${siteData.email}?subject=${subject}`;
             </svg>
             {siteData.email}
           </a>
+          {
+            wa && (
+              <a href={`https://wa.me/${wa}`} target="_blank" rel="noopener noreferrer" class="btn-ghost-dark">
+                {tr.cta.whatsapp}
+              </a>
+            )
+          }
           {
             siteData.linkedin && (
               <a href={siteData.linkedin} target="_blank" rel="noopener noreferrer" class="btn-ghost-dark">

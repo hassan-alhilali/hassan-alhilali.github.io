@@ -2,6 +2,7 @@
 import { t, type Lang } from '../i18n/content';
 import tools from '../data/tools.json';
 import sectors from '../data/sectors.json';
+import certificates from '../data/certificates.json';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -63,7 +64,17 @@ const data = tools.filter((x) => x.category === 'data');
 
       <article class="card p-6 lg:p-7 scroll-reveal stagger-4">
         <h3 class="text-[13px] font-bold uppercase tracking-[0.14em] text-deep-blue">{tr.expertise.certs}</h3>
-        <p class="mt-5 text-[14px] text-slate-gray">{tr.expertise.certsNote}</p>
+        <ul class="mt-5 grid gap-2">
+          {
+            certificates.map((c) => (
+              <li class="flex items-start gap-2.5 text-[13.5px] text-charcoal">
+                <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-amber shrink-0" aria-hidden="true" />
+                {c.title[lang]}
+              </li>
+            ))
+          }
+        </ul>
+        <a href="#certificates" class="mt-4 inline-block text-[13px] font-semibold text-deep-blue hover:underline">{tr.certificates.view}</a>
       </article>
     </div>
   </div>
