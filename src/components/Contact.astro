@@ -13,7 +13,7 @@ const wa = siteData.whatsapp.replace(/\D/g, '');
 
 <section id="contact" class="relative bg-navy text-white section-pad overflow-hidden" aria-labelledby="contact-heading">
   <div class="absolute inset-0" aria-hidden="true">
-    <img src="/images/contact-bg.jpg" alt="" class="w-full h-full object-cover opacity-[0.07]" loading="lazy" />
+    <img src="/images/contact-bg.jpg" alt="" class="contact-bg-image w-full h-full object-cover opacity-[0.18]" loading="lazy" />
   </div>
   <div
     class="absolute inset-0"
@@ -54,7 +54,8 @@ const wa = siteData.whatsapp.replace(/\D/g, '');
           <div class="px-6 py-5">
             <dt class="text-[11px] font-semibold uppercase tracking-[0.15em] text-white/40">{tr.contact.emailLabel}</dt>
             <dd class="mt-1.5">
-              <a href={mailto} class="text-[15px] font-medium text-sky hover:text-white break-all">{siteData.email}</a>
+              <a href={mailto} class="text-[15px] font-medium text-sky hover:text-white break-all" dir="ltr">{siteData.email}</a>
+              <a href={`mailto:${siteData.workEmail}`} class="mt-2 block text-[14px] font-medium text-white/70 hover:text-sky break-all" dir="ltr">{siteData.workEmail}</a>
             </dd>
           </div>
           <div class="px-6 py-5">
@@ -79,3 +80,7 @@ const wa = siteData.whatsapp.replace(/\D/g, '');
     </div>
   </div>
 </section>
+
+<style>
+  .contact-bg-image { filter: brightness(0.42) saturate(0.75); }
+</style>
