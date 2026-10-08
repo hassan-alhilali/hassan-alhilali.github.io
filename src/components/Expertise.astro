@@ -24,7 +24,10 @@ const data = tools.filter((x) => x.category === 'data');
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
       <article class="card p-6 lg:p-7 scroll-reveal">
-        <h3 class="text-[13px] font-bold uppercase tracking-[0.14em] text-deep-blue">{tr.expertise.core}</h3>
+        <div class="flex items-center gap-3">
+          <img src="/images/primavera-p6-logo.png" alt="Oracle Primavera P6" width="56" height="56" class="w-14 h-14 rounded-xl object-cover shadow-sm" loading="lazy" />
+          <h3 class="text-[13px] font-bold uppercase tracking-[0.14em] text-deep-blue">{tr.expertise.core}</h3>
+        </div>
         <ul class="mt-5 flex flex-wrap gap-2">
           {
             core.map((x) => (
