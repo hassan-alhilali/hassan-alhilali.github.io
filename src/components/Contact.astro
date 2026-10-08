@@ -7,7 +7,7 @@ const { lang } = Astro.props;
 const tr = t(lang);
 
 const subject = encodeURIComponent(lang === 'ar' ? 'استفسار عن خدمات بريمافيرا P6' : 'Primavera P6 / project controls enquiry');
-const mailto = `mailto:${siteData.email}?subject=${subject}`;
+const mailto = `mailto:Eng.hassan268@gmail.com?subject=${subject}`;
 const wa = siteData.whatsapp.replace(/\D/g, '');
 ---
 
@@ -32,14 +32,6 @@ const wa = siteData.whatsapp.replace(/\D/g, '');
         <p class="mt-5 text-[17px] leading-relaxed text-white/55 max-w-prose scroll-reveal stagger-3">{tr.contact.lead}</p>
 
         <div class="mt-9 flex flex-wrap items-center gap-3 scroll-reveal stagger-4">
-          <a href={mailto} class="btn-primary shadow-[0_16px_36px_-16px_rgba(37,99,235,0.9)]">
-            <svg class="w-4 h-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
-              <rect x="2.5" y="4" width="15" height="12" rx="2" />
-              <path d="M3 5.5l7 5 7-5" stroke-linecap="round" />
-            </svg>
-            {siteData.email}
-          </a>
-          <a href={`tel:${siteData.phone}`} class="btn-ghost-dark" dir="ltr">{siteData.phone}</a>
           {
             wa && (
               <a href={`https://wa.me/${wa}`} target="_blank" rel="noopener noreferrer" class="btn-ghost-dark">

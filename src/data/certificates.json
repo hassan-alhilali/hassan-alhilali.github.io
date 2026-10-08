@@ -5,8 +5,14 @@
       "en": "ORACLE PRIMAVERA P6 ENTERPRISE PROJECT PORTFOLIO MANAGEMENT (P6 EPPM)",
       "ar": "ORACLE PRIMAVERA P6 ENTERPRISE PROJECT PORTFOLIO MANAGEMENT (P6 EPPM)"
     },
-    "holder": { "en": "HASSAN MOHAMMED LETHEETH", "ar": "HASSAN MOHAMMED LETHEETH" },
-    "issuer": { "en": "INVENSIS LEARNING", "ar": "INVENSIS LEARNING" },
+    "holder": {
+      "en": "HASSAN MOHAMMED LETHEETH",
+      "ar": "HASSAN MOHAMMED LETHEETH"
+    },
+    "issuer": {
+      "en": "INVENSIS LEARNING",
+      "ar": "INVENSIS LEARNING"
+    },
     "year": "2023",
     "hours": "40 Hours / 40 PDUs",
     "courseDate": "October 14 - 18, 2023",
@@ -17,5 +23,22 @@
     "verifyId": "IL-246810-P6",
     "verifyUrl": "https://www.invensislearning.com/verify",
     "publicId": "IL-246810-P6"
+  },
+  {
+    "id": "primavera-project-management-training",
+    "title": {
+      "en": "Project Management Using Primavera — Training Endorsement",
+      "ar": "إدارة المشاريع باستخدام برنامج بريمافيرا — شهادة تدريب"
+    },
+    "holder": {
+      "en": "HASSAN MOHAMMED LETHEETH",
+      "ar": "حسن محمد لذيذ"
+    },
+    "issuer": {
+      "en": "Arab Petroleum Training Institute",
+      "ar": "معهد التدريب النفطي العربي"
+    },
+    "year": "",
+    "file": "primavera-project-management-training.png"
   }
 ]
