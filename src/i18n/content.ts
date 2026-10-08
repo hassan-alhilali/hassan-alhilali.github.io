@@ -178,7 +178,7 @@ export const content = {
       eyebrow: 'Professional experience',
       title: 'Project monitoring at Dhi Qar Oil Company',
       lead:
-        'My day job is project follow-up and monitoring at Dhi Qar Oil Company — the desk that receives contractor schedules, checks them and tracks them through execution. That owner-side perspective is what I bring to every engagement.',
+        'My employed role is project follow-up and monitoring at Dhi Qar Oil Company — the desk that receives contractor schedules, checks them and tracks them through execution. That owner-side perspective is what I bring to every independent engagement.',
       current: 'Current role',
       duties: [
         { title: 'Project follow-up & monitoring', desc: 'Tracking physical progress against approved baselines, flagging slippage early and keeping management informed.' },
@@ -196,10 +196,12 @@ export const content = {
         { k: 'Accept', v: 'Approved baseline, monthly monitoring' },
       ],
       stats: [
-        { k: 'Owner side', v: 'I know what the client reviewer looks for — because I am that reviewer.' },
+        { k: 'Owner side', v: 'Hands-on experience of what owner-side reviewers check before a schedule is accepted.' },
         { k: 'Oil & gas', v: 'Field development, facilities and infrastructure projects.' },
         { k: 'Many projects', v: 'Monitored, reviewed and reported across their full lifecycle.' },
       ],
+      independence:
+        'Consulting services on this site are provided independently, in a personal capacity — not on behalf of my employer. To avoid any conflict of interest, I do not accept engagements on projects where my employer is the owner or a party, and no confidential employer information is ever used.',
     },
     certificates: {
       eyebrow: 'Credentials',
@@ -249,6 +251,8 @@ export const content = {
         { q: 'Can you take over an existing schedule?', a: 'Usually that is the starting point. I run a health check on what exists, agree with you what must be fixed, and rebuild only what genuinely needs rebuilding.' },
         { q: 'Which versions of Primavera P6 do you work with?', a: 'P6 Professional and P6 EPPM, current and legacy releases. I also work in Microsoft Project and can convert cleanly between the two.' },
         { q: 'How does an engagement usually start?', a: 'A short call, then a fixed-scope first step — normally a schedule health check or a baseline build — so you can judge the work before committing to anything longer.' },
+        { q: 'How are fees and payment handled?', a: 'Each request receives a written quote with scope, deliverables, timeline and a fixed fee (or a day rate for open-ended support), in USD or IQD. Larger engagements are split into milestone payments.' },
+        { q: 'Is my project data kept confidential?', a: 'Yes. Project files are used only for the agreed scope, are not shared with third parties, and are deleted or returned at the end of the engagement. I am happy to sign your NDA before receiving any files.' },
       ],
     },
     contact: {
@@ -264,6 +268,8 @@ export const content = {
     footer: {
       tagline: 'Primavera P6 and project controls consulting for capital projects.',
       rights: 'All rights reserved.',
+      trademark:
+        'Oracle and Primavera are registered trademarks of Oracle and/or its affiliates. This is an independent consulting practice, not affiliated with or endorsed by Oracle.',
       backToTop: 'Back to top',
     },
   },
@@ -439,7 +445,7 @@ export const content = {
       eyebrow: 'الخبرة المهنية',
       title: 'متابعة المشاريع في شركة نفط ذي قار',
       lead:
-        'عملي الأساسي هو متابعة المشاريع ورصدها في شركة نفط ذي قار — الجهة التي تستلم جداول المقاولين وتدقّقها وتتابع تنفيذها. وهذا المنظور من جهة المالك هو ما أحمله إلى كل تكليف.',
+        'وظيفتي هي متابعة المشاريع ورصدها في شركة نفط ذي قار — الجهة التي تستلم جداول المقاولين وتدقّقها وتتابع تنفيذها. وهذا المنظور من جهة المالك هو ما أحمله إلى كل تكليف مستقل.',
       current: 'المنصب الحالي',
       duties: [
         { title: 'متابعة المشاريع ورصدها', desc: 'تتبّع الإنجاز الفعلي مقابل خطوط الأساس المعتمدة، والتنبيه المبكر للتأخير، وإبقاء الإدارة على اطلاع.' },
@@ -457,10 +463,12 @@ export const content = {
         { k: 'الاعتماد', v: 'خط أساس معتمد ومتابعة شهرية' },
       ],
       stats: [
-        { k: 'من جهة المالك', v: 'أعرف ما يبحث عنه مراجِع جهة العمل — لأنني أنا ذلك المراجِع.' },
+        { k: 'من جهة المالك', v: 'خبرة عملية بما يدقّقه مراجِع جهة المالك قبل قبول أي جدول.' },
         { k: 'النفط والغاز', v: 'مشاريع تطوير الحقول والمنشآت والبنى التحتية.' },
         { k: 'مشاريع عديدة', v: 'متابعة ومراجعة وتقارير على امتداد دورة حياتها كاملة.' },
       ],
+      independence:
+        'الخدمات الاستشارية في هذا الموقع تُقدَّم بصفة شخصية مستقلة، لا باسم جهة عملي. وتجنبًا لأي تضارب مصالح، لا أقبل أي تكليف في مشاريع تكون جهة عملي مالكة لها أو طرفًا فيها، ولا تُستخدم أي معلومات سرية تخص جهة العمل.',
     },
     certificates: {
       eyebrow: 'المؤهلات',
@@ -510,6 +518,8 @@ export const content = {
         { q: 'هل يمكنك استلام جدول قائم؟', a: 'غالبًا هذه هي نقطة البداية. أُجري فحص سلامة لما هو موجود، ونتفق معًا على ما يجب إصلاحه، ثم أعيد بناء ما يستحق إعادة البناء فقط.' },
         { q: 'ما إصدارات بريمافيرا P6 التي تعمل عليها؟', a: 'إصدارات P6 Professional و P6 EPPM، الحديثة والقديمة. وأعمل أيضًا على Microsoft Project مع تحويل نظيف بين النظامين.' },
         { q: 'كيف يبدأ التكليف عادةً؟', a: 'مكالمة قصيرة، ثم خطوة أولى محددة النطاق — عادةً فحص سلامة جدول أو بناء خط أساس — لتحكم على العمل قبل الالتزام بأي مدى أطول.' },
+        { q: 'كيف تُحدَّد الأتعاب وطريقة الدفع؟', a: 'كل طلب يحصل على عرض مكتوب يوضح النطاق والمخرجات والمدة وأتعابًا ثابتة (أو أجرًا يوميًا للدعم المفتوح)، بالدولار أو الدينار العراقي. والتكليفات الكبيرة تُقسَّم إلى دفعات مرتبطة بمراحل التسليم.' },
+        { q: 'هل تبقى بيانات مشروعي سرية؟', a: 'نعم. تُستخدم ملفات المشروع للنطاق المتفق عليه فقط، ولا تُشارك مع أي طرف ثالث، وتُحذف أو تُعاد عند انتهاء التكليف. ويسعدني توقيع اتفاقية عدم إفصاح (NDA) قبل استلام أي ملف.' },
       ],
     },
     contact: {
@@ -525,6 +535,8 @@ export const content = {
     footer: {
       tagline: 'استشارات بريمافيرا P6 وضبط المشاريع للمشاريع الرأسمالية.',
       rights: 'جميع الحقوق محفوظة.',
+      trademark:
+        'Oracle و Primavera علامتان تجاريتان مسجلتان لشركة Oracle و/أو الشركات التابعة لها. هذه ممارسة استشارية مستقلة لا ترتبط بشركة Oracle ولا تحظى باعتمادها.',
       backToTop: 'العودة للأعلى',
     },
   },

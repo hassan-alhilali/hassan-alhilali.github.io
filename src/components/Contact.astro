@@ -55,13 +55,12 @@ const wa = siteData.whatsapp.replace(/\D/g, '');
             <dt class="text-[11px] font-semibold uppercase tracking-[0.15em] text-white/40">{tr.contact.emailLabel}</dt>
             <dd class="mt-1.5">
               <a href={mailto} class="text-[15px] font-medium text-sky hover:text-white break-all" dir="ltr">{siteData.email}</a>
-              <a href={`mailto:${siteData.workEmail}`} class="mt-2 block text-[14px] font-medium text-white/70 hover:text-sky break-all" dir="ltr">{siteData.workEmail}</a>
             </dd>
           </div>
           <div class="px-6 py-5">
             <dt class="text-[11px] font-semibold uppercase tracking-[0.15em] text-white/40">{tr.contact.phoneLabel}</dt>
             <dd class="mt-1.5">
-              <a href={`tel:${siteData.phone}`} class="text-[15px] font-medium text-sky hover:text-white" dir="ltr">{siteData.phone}</a>
+              <a href={`tel:${siteData.phone.replace(/\s/g, '')}`} class="text-[15px] font-medium text-sky hover:text-white" dir="ltr">{siteData.phone}</a>
             </dd>
           </div>
           <div class="px-6 py-5">
