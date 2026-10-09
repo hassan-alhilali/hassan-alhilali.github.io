@@ -15,7 +15,7 @@ export const certs = certificates.map((c) => {
 });
 
 export function absolute(path: string, site: URL | undefined) {
-  return new URL(path, site ?? 'https://hassan-alhilali.github.io').href;
+  return new URL(path, site ?? 'https://www-iq-helaly.github.io').href;
 }
 
 export function qrSvg(url: string) {
